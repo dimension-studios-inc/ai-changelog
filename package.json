@@ -1,5 +1,5 @@
 {
-  "name": "@dimension/ai-changelog",
+  "name": "@dimension-studios/ai-changelog",
   "version": "0.0.0-development",
   "description": "Semantic-release plugin that generates AI release notes and posts them to Discord.",
   "type": "module",

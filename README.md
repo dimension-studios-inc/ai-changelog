@@ -1,4 +1,4 @@
-# @dimension/ai-changelog
+# @dimension-studios/ai-changelog
 
 Generate AI-written changelog announcements from semantic-release and publish them to Discord.
 
@@ -7,7 +7,7 @@ The plugin runs during the semantic-release `success` step. It reads the release
 ## Install
 
 ```sh
-npm install --save-dev @dimension/ai-changelog
+npm install --save-dev @dimension-studios/ai-changelog
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ export default {
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    "@dimension/ai-changelog",
+    "@dimension-studios/ai-changelog",
   ],
 }
 ```
@@ -38,7 +38,7 @@ AI_CHANGELOG_DISCORD_WEBHOOK=https://discord.com/api/webhooks/...
 export default {
   plugins: [
     [
-      "@dimension/ai-changelog",
+      "@dimension-studios/ai-changelog",
       {
         branches: ["main", "main-release"],
         model: "openai/gpt-5.4-nano",
