@@ -67,6 +67,26 @@ Options:
 
 Use `dryRun: true` when testing the plugin in CI. The plugin still collects release context and generates the Discord payload, but it does not call the webhook.
 
+## Dogfooding
+
+This package can use itself during its own semantic-release run. Build the package first, then load the local built plugin from `./dist/index.mjs` in `release.config.js`.
+
+```js
+export default {
+  plugins: [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "./dist/index.mjs",
+      {
+        branches: ["main"],
+        model: "openai/gpt-5.4-nano",
+      },
+    ],
+  ],
+}
+```
+
 ## License
 
 MIT

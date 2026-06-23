@@ -19,5 +19,12 @@ export default {
         message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
       },
     ],
+    [
+      "./dist/index.mjs",
+      {
+        branches: ["main"],
+        model: "openai/gpt-5.4-nano",
+      },
+    ],
   ],
 }
