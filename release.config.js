@@ -1,5 +1,11 @@
 export default {
-  branches: ["main"],
+  branches: [
+    {
+      name: "beta",
+      prerelease: true,
+    },
+    "main",
+  ],
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
@@ -22,7 +28,7 @@ export default {
     [
       "./dist/index.mjs",
       {
-        branches: ["main"],
+        branches: ["main", "beta"],
         model: "openai/gpt-5.4-nano",
       },
     ],
