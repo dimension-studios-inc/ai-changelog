@@ -16,7 +16,12 @@ export default {
         npmPublish: true,
       },
     ],
-    "@semantic-release/github",
+    [
+      "@semantic-release/github",
+      {
+        labels: false,
+      },
+    ],
     [
       "@semantic-release/git",
       {
