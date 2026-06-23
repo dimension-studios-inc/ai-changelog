@@ -1,0 +1,109 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.0/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "src/**/*.ts",
+      "test/**/*.ts",
+      "*.js",
+      "*.ts",
+      "*.json",
+      ".github/**/*.yml",
+      "!dist",
+      "!node_modules",
+      "!coverage",
+      "!package-lock.json"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "auto",
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "es5",
+      "semicolons": "asNeeded"
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": false,
+      "allowTrailingCommas": false
+    },
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noUselessContinue": "error",
+        "noUselessEmptyExport": "error",
+        "noUselessSwitchCase": "error",
+        "noUselessTernary": "error",
+        "noUselessUndefinedInitialization": "error",
+        "useArrowFunction": "error",
+        "useDateNow": "error",
+        "useIndexOf": "error",
+        "useLiteralKeys": "error",
+        "useOptionalChain": "error",
+        "useRegexLiterals": "error",
+        "useSimplifiedLogicExpression": "error"
+      },
+      "correctness": {
+        "noUnusedFunctionParameters": "error",
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "useParseIntRadix": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "error",
+        "noBarrelFile": "error"
+      },
+      "style": {
+        "noCommonJs": "error",
+        "noNonNullAssertion": "error",
+        "noParameterAssign": "error",
+        "noProcessEnv": "error",
+        "useConst": "error",
+        "useExponentiationOperator": "error",
+        "useImportType": "error",
+        "useNodejsImportProtocol": "error",
+        "useTemplate": "error"
+      },
+      "suspicious": {
+        "noConfusingVoidType": "error",
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["error", "info", "warn"]
+          }
+        },
+        "noExplicitAny": "error",
+        "noGlobalIsNan": "error",
+        "noImportCycles": "error",
+        "noTsIgnore": "error"
+      }
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

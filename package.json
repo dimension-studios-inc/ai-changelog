@@ -1,0 +1,65 @@
+{
+  "name": "@dimension/ai-changelog",
+  "version": "0.0.0-development",
+  "description": "Semantic-release plugin that generates AI release notes and posts them to Discord.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dimension-studios-inc/ai-changelog.git"
+  },
+  "engines": {
+    "node": "^22.14.0 || >=24.10.0"
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "source": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "release": "semantic-release"
+  },
+  "peerDependencies": {
+    "semantic-release": "^25.0.0"
+  },
+  "dependencies": {
+    "@ai-sdk/gateway": "^3.0.133",
+    "ai": "^6.0.208",
+    "execa": "^9.6.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.8",
+    "@semantic-release/npm": "^13.1.5",
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "@types/node": "^24.0.0",
+    "semantic-release": "^25.0.0",
+    "tsdown": "^0.22.3",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
