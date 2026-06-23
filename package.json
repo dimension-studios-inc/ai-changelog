@@ -28,7 +28,6 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
     "lint": "biome check .",
