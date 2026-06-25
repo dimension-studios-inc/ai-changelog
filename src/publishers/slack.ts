@@ -11,7 +11,26 @@ function clamp(text: string, maxLength: number) {
 }
 
 function buildFallbackText(announcement: Announcement) {
-  return clamp(`${announcement.title}\n\n${announcement.description}`, SLACK_FALLBACK_LIMIT)
+  return clamp(`${announcement.title}\n\n${formatSlackMrkdwn(announcement.description)}`, SLACK_FALLBACK_LIMIT)
+}
+
+function formatInlineMarkdown(text: string) {
+  return text.replace(/\*\*([^*]+)\*\*/g, "*$1*")
+}
+
+function formatSlackMrkdwn(markdown: string) {
+  return markdown
+    .split("\n")
+    .map((line) => {
+      const heading = line.match(/^#{1,6}\s+(.+)$/)
+      if (heading?.[1]) return `*${formatInlineMarkdown(heading[1].trim())}*`
+
+      const bullet = line.match(/^(\s*)[-*]\s+(.+)$/)
+      if (bullet?.[2]) return `${bullet[1] ?? ""}• ${formatInlineMarkdown(bullet[2])}`
+
+      return formatInlineMarkdown(line)
+    })
+    .join("\n")
 }
 
 function buildSlackPayload({
@@ -38,7 +57,7 @@ function buildSlackPayload({
         type: "section",
         text: {
           type: "mrkdwn",
-          text: clamp(announcement.description, SLACK_SECTION_LIMIT),
+          text: clamp(formatSlackMrkdwn(announcement.description), SLACK_SECTION_LIMIT),
         },
       },
       {

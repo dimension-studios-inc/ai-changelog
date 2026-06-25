@@ -59,6 +59,37 @@ describe("publishSlackAnnouncement", () => {
     )
   })
 
+  it("formats common Markdown as Slack mrkdwn", async () => {
+    const fetchImpl = vi.fn(async (_url: string | URL | Request, _init?: RequestInit) => {
+      return new Response("ok", { status: 200 })
+    })
+
+    await publishSlackAnnouncement({
+      webhookUrl: "https://slack.example/webhook",
+      announcement: {
+        title: "Release",
+        description:
+          "### Slack release announcements\n" +
+          "- Added **Slack** support.\n" +
+          "- Added `AI_CHANGELOG_SLACK_WEBHOOK` for incoming webhooks.",
+      },
+      branchName: "beta",
+      version: "1.0.0-beta.2",
+      dryRun: false,
+      logger: console,
+      fetchImpl,
+    })
+
+    const request = fetchImpl.mock.calls[0]?.[1]
+    const body = JSON.parse(String(request?.body))
+
+    expect(body.blocks[1].text.text).toBe(
+      "*Slack release announcements*\n" +
+        "• Added *Slack* support.\n" +
+        "• Added `AI_CHANGELOG_SLACK_WEBHOOK` for incoming webhooks."
+    )
+  })
+
   it("does not post in dry run", async () => {
     const fetchImpl = vi.fn()
 
