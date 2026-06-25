@@ -1,6 +1,6 @@
 {
   "name": "@dimension-studios/ai-changelog",
-  "version": "1.0.0-beta.3",
+  "version": "0.0.0-development",
   "description": "Semantic-release plugin that generates AI release notes and posts them to Discord.",
   "type": "module",
   "license": "MIT",
@@ -14,6 +14,9 @@
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "source": "./src/index.ts",
+  "bin": {
+    "ai-changelog": "./dist/cli.mjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",

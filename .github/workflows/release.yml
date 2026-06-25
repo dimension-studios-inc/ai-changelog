@@ -4,23 +4,70 @@ on:
   push:
     branches:
       - main
+      - main-release
       - beta
+      - beta-release
   workflow_dispatch:
 
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  id-token: write
+  contents: read
 
 jobs:
-  release:
+  sync:
+    name: Sync
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta'
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
       - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          token: ${{ steps.generate_token.outputs.token }}
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@example.com"
+      - name: Sync Branch
+        run: |
+          SOURCE="${GITHUB_REF_NAME}"
+          TARGET="${GITHUB_REF_NAME}-release"
+
+          git fetch origin "$TARGET:$TARGET"
+          git fetch origin "$SOURCE"
+
+          git checkout "$TARGET"
+          git merge "origin/$SOURCE" --strategy=recursive -X theirs --no-edit
+          git push origin "$TARGET"
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    if: github.ref == 'refs/heads/main-release' || github.ref == 'refs/heads/beta-release'
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ steps.generate_token.outputs.token }}
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -33,7 +80,6 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
           AI_CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.AI_CHANGELOG_DISCORD_WEBHOOK }}
           AI_CHANGELOG_SLACK_WEBHOOK: ${{ secrets.AI_CHANGELOG_SLACK_WEBHOOK }}
