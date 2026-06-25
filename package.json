@@ -14,6 +14,9 @@
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "source": "./src/index.ts",
+  "bin": {
+    "ai-changelog": "./dist/cli.mjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
