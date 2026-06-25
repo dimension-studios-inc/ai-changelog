@@ -21,7 +21,7 @@ describe("resolveConfig", () => {
     expect(config.gatewayApiKey).toBe("gateway-key")
     expect(config.model).toBe(DEFAULT_MODEL)
     expect(config.prompt).toBe(DEFAULT_PROMPT)
-    expect(config.branches).toEqual(["main", "main-release"])
+    expect(config.branches).toEqual(["main-release", "beta-release"])
     expect(config.excludePaths).toEqual(DEFAULT_EXCLUDE_PATHS)
   })
 
