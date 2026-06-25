@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest"
 
-import { buildPrompt, generateAnnouncement } from "../src/ai"
+import { buildPrompt, DEFAULT_PROMPT, generateAnnouncement } from "../src/ai"
 
 const mocks = vi.hoisted(() => {
   const generateText = vi.fn()
@@ -44,6 +44,7 @@ describe("ai", () => {
       gatewayApiKey: "key",
       model: "xai/grok-3-beta",
       prompt: "prompt",
+      systemPrompt: DEFAULT_PROMPT,
       logger: console,
     })
 
@@ -55,6 +56,7 @@ describe("ai", () => {
         model: { model: "xai/grok-3-beta" },
         output: expect.objectContaining({ kind: "object" }),
         prompt: "prompt",
+        system: DEFAULT_PROMPT,
       })
     )
   })

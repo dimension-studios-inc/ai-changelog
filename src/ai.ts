@@ -1,3 +1,4 @@
+import type { GatewayModelId } from "@ai-sdk/gateway"
 import { createGateway } from "@ai-sdk/gateway"
 import { generateText, Output } from "ai"
 import * as z from "zod"
@@ -10,6 +11,10 @@ const announcementSchema = z.object({
 })
 
 const MAX_PATCH_CHARS = 120_000
+export const DEFAULT_PROMPT =
+  "Generate concise, professional release notes for non-developer readers. " +
+  "Only mention user-facing changes. Group content naturally. " +
+  "If there are no user-facing changes, return empty strings."
 
 function clamp(text: string, maxChars: number) {
   if (text.length <= maxChars) return text
@@ -47,11 +52,13 @@ export async function generateAnnouncement({
   gatewayApiKey,
   model,
   prompt,
+  systemPrompt,
   logger,
 }: {
   gatewayApiKey?: string
-  model: string
+  model: GatewayModelId
   prompt: string
+  systemPrompt: string
   logger: ReleaseNotesLogger
 }): Promise<Announcement> {
   logger.log(`Generating AI changelog announcement with ${model}`)
@@ -59,10 +66,7 @@ export async function generateAnnouncement({
   const gateway = createGateway({ apiKey: gatewayApiKey })
   const { output } = await generateText({
     model: gateway(model),
-    system:
-      "Generate concise, professional Discord release notes for non-developer readers. " +
-      "Only mention user-facing changes. Group content naturally. " +
-      "If there are no user-facing changes, return empty strings.",
+    system: systemPrompt,
     prompt,
     output: Output.object({ schema: announcementSchema }),
   })

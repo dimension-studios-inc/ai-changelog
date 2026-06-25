@@ -1,3 +1,5 @@
+import type { GatewayModelId } from "@ai-sdk/gateway"
+
 export type ReleaseNotesLogger = {
   log(message: string): void
   warn(message: string): void
@@ -5,8 +7,10 @@ export type ReleaseNotesLogger = {
 
 export type PluginConfig = {
   discordWebhookUrl?: string
+  slackWebhookUrl?: string
   gatewayApiKey?: string
-  model?: string
+  model?: GatewayModelId
+  prompt?: string
   branches?: string[]
   includePaths?: string[]
   excludePaths?: string[]
@@ -14,9 +18,11 @@ export type PluginConfig = {
 }
 
 export type ResolvedConfig = {
-  discordWebhookUrl: string
+  discordWebhookUrl?: string
+  slackWebhookUrl?: string
   gatewayApiKey?: string
-  model: string
+  model: GatewayModelId
+  prompt: string
   branches: string[]
   includePaths: string[]
   excludePaths: string[]
@@ -36,4 +42,21 @@ export type ReleaseInput = {
   branchName: string
   logger: ReleaseNotesLogger
   config: ResolvedConfig
+}
+
+export type PublisherResult =
+  | { sent: true }
+  | { sent: false; reason: "dry-run" | "empty-output" | "unsupported-branch" }
+
+export type PublisherInput = {
+  announcement: Announcement
+  branchName: string
+  version: string
+  dryRun: boolean
+  logger: ReleaseNotesLogger
+}
+
+export type Publisher = {
+  name: string
+  publish(input: PublisherInput): Promise<PublisherResult>
 }

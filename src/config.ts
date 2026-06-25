@@ -1,5 +1,7 @@
+import type { GatewayModelId } from "@ai-sdk/gateway"
 import * as z from "zod"
 
+import { DEFAULT_PROMPT } from "./ai"
 import type { ResolvedConfig } from "./shared/types"
 
 export const DEFAULT_EXCLUDE_PATHS = [
@@ -15,12 +17,17 @@ export const DEFAULT_EXCLUDE_PATHS = [
   "**/*.lock",
 ]
 
-export const DEFAULT_MODEL = "openai/gpt-5.4-nano"
+export const DEFAULT_MODEL = "openai/gpt-5.4-nano" satisfies GatewayModelId
+
+const nonEmptyStringSchema = z.string().trim().min(1)
+const gatewayModelSchema = nonEmptyStringSchema.transform((value) => value as GatewayModelId)
 
 const pluginConfigSchema = z.object({
-  discordWebhookUrl: z.string().optional(),
-  gatewayApiKey: z.string().optional(),
-  model: z.string().optional(),
+  discordWebhookUrl: nonEmptyStringSchema.optional(),
+  slackWebhookUrl: nonEmptyStringSchema.optional(),
+  gatewayApiKey: nonEmptyStringSchema.optional(),
+  model: gatewayModelSchema.optional(),
+  prompt: nonEmptyStringSchema.optional(),
   branches: z.array(z.string()).optional(),
   includePaths: z.array(z.string()).optional(),
   excludePaths: z.array(z.string()).optional(),
@@ -34,19 +41,25 @@ function readEnv(name: string) {
 
 export function resolveConfig(pluginConfig: unknown): ResolvedConfig {
   const parsed = pluginConfigSchema.parse(pluginConfig ?? {})
-  const discordWebhookUrl =
-    parsed.discordWebhookUrl ?? readEnv("AI_CHANGELOG_DISCORD_WEBHOOK") ?? readEnv("DISCORD_WEBHOOK")
+  const discordWebhookUrl = parsed.discordWebhookUrl ?? readEnv("AI_CHANGELOG_DISCORD_WEBHOOK")
+  const slackWebhookUrl = parsed.slackWebhookUrl ?? readEnv("AI_CHANGELOG_SLACK_WEBHOOK")
   const gatewayApiKey = parsed.gatewayApiKey ?? readEnv("AI_GATEWAY_API_KEY")
   const model = parsed.model ?? readEnv("AI_CHANGELOG_MODEL") ?? DEFAULT_MODEL
+  const prompt = parsed.prompt ?? DEFAULT_PROMPT
 
-  if (!(discordWebhookUrl || parsed.dryRun)) {
-    throw new Error("Missing Discord webhook URL. Set discordWebhookUrl or AI_CHANGELOG_DISCORD_WEBHOOK.")
+  if (!(discordWebhookUrl || slackWebhookUrl || parsed.dryRun)) {
+    throw new Error(
+      "Missing notification webhook URL. Set discordWebhookUrl, slackWebhookUrl, " +
+        "AI_CHANGELOG_DISCORD_WEBHOOK, or AI_CHANGELOG_SLACK_WEBHOOK."
+    )
   }
 
   return {
-    discordWebhookUrl: discordWebhookUrl ?? "dry-run",
+    discordWebhookUrl,
+    slackWebhookUrl,
     gatewayApiKey,
     model,
+    prompt,
     branches: parsed.branches ?? ["main", "main-release"],
     includePaths: parsed.includePaths ?? [],
     excludePaths: [...DEFAULT_EXCLUDE_PATHS, ...(parsed.excludePaths ?? [])],
