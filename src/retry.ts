@@ -104,13 +104,11 @@ function buildPluginConfig(options: RetryOptions): PluginConfig {
   }
 }
 
-function applyPublisherSelection(config: ResolvedConfig, publisher: PublisherSelection) {
-  if (publisher === "slack") {
-    config.discordWebhookUrl = undefined
-  }
-
-  if (publisher === "discord") {
-    config.slackWebhookUrl = undefined
+function selectPublishers(config: ResolvedConfig, publisher: PublisherSelection): ResolvedConfig {
+  return {
+    ...config,
+    discordWebhookUrl: publisher === "slack" ? undefined : config.discordWebhookUrl,
+    slackWebhookUrl: publisher === "discord" ? undefined : config.slackWebhookUrl,
   }
 }
 
@@ -128,8 +126,7 @@ export async function retryReleaseAnnouncement({
     tag: options.tag,
     git,
   })
-  const config = resolveConfig(buildPluginConfig(options))
-  applyPublisherSelection(config, options.publisher)
+  const config = selectPublishers(resolveConfig(buildPluginConfig(options)), options.publisher)
 
   if (!(config.dryRun || config.discordWebhookUrl || config.slackWebhookUrl)) {
     throw new Error(`Missing ${options.publisher} webhook URL for retry`)

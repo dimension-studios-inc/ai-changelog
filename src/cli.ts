@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { realpathSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import type { GatewayModelId } from "@ai-sdk/gateway"
 
@@ -17,16 +18,35 @@ function readValue(args: string[], index: number, flag: string) {
 }
 
 function readBoolean(value: string | undefined) {
-  if (value === undefined) return true
-  if (value === "true") return true
-  if (value === "false") return false
-  throw new Error(`Expected boolean value, received ${value}`)
+  switch (value) {
+    case undefined:
+    case "true":
+      return true
+    case "false":
+      return false
+    default:
+      throw new Error(`Expected boolean value, received ${value}`)
+  }
 }
 
 function readOptionalValue(args: string[], index: number) {
   const value = args[index + 1]
   if (!value || value.startsWith("--")) return undefined
   return value
+}
+
+function realpathOrOriginal(path: string) {
+  try {
+    return realpathSync(path)
+  } catch {
+    return path
+  }
+}
+
+export function isCliEntrypoint(argvPath = process.argv[1], moduleUrl = import.meta.url) {
+  if (!argvPath) return false
+
+  return realpathOrOriginal(argvPath) === fileURLToPath(moduleUrl)
 }
 
 function printRetryHelp() {
@@ -156,6 +176,6 @@ async function main() {
   }
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (isCliEntrypoint()) {
   await main()
 }

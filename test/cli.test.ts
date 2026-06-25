@@ -1,6 +1,10 @@
+import { mkdtempSync, symlinkSync } from "node:fs"
+import { tmpdir } from "node:os"
+import { join } from "node:path"
+import { fileURLToPath, pathToFileURL } from "node:url"
 import { describe, expect, it } from "vitest"
 
-import { parseRetryArgs } from "../src/cli"
+import { isCliEntrypoint, parseRetryArgs } from "../src/cli"
 
 describe("parseRetryArgs", () => {
   it("parses retry options", () => {
@@ -50,5 +54,14 @@ describe("parseRetryArgs", () => {
     expect(() => parseRetryArgs(["--branch", "main", "--publisher", "teams"])).toThrow(
       "--publisher must be one of both, slack, or discord"
     )
+  })
+
+  it("detects the CLI entrypoint when npm runs the bin symlink", () => {
+    const cliPath = fileURLToPath(new URL("../src/cli.ts", import.meta.url))
+    const symlinkPath = join(mkdtempSync(join(tmpdir(), "ai-changelog-cli-")), "ai-changelog")
+
+    symlinkSync(cliPath, symlinkPath)
+
+    expect(isCliEntrypoint(symlinkPath, pathToFileURL(cliPath).href)).toBe(true)
   })
 })
