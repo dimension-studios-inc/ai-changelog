@@ -1,3 +1,10 @@
+# [1.0.0-beta.3](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2026-06-25)
+
+
+### Bug Fixes
+
+* Format Slack release markdown ([3e112a1](https://github.com/dimension-studios-inc/ai-changelog/commit/3e112a1e4691fea36a07fb6f70032d0b7f8e9e75))
+
 # [1.0.0-beta.2](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-06-25)
 
 

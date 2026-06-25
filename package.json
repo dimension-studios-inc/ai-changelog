@@ -1,6 +1,6 @@
 {
   "name": "@dimension-studios/ai-changelog",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Semantic-release plugin that generates AI release notes and posts them to Discord.",
   "type": "module",
   "license": "MIT",
