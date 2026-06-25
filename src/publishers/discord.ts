@@ -1,10 +1,11 @@
-import type { Announcement, ReleaseNotesLogger } from "../shared/types"
+import type { Announcement, Publisher, ReleaseNotesLogger } from "../shared/types"
 
 const DISCORD_DESCRIPTION_LIMIT = 4096
+const TRUNCATION_SUFFIX = "\n\n[...truncated...]"
 
 function clampDescription(description: string) {
   if (description.length <= DISCORD_DESCRIPTION_LIMIT) return description
-  return `${description.slice(0, DISCORD_DESCRIPTION_LIMIT - 18)}\n\n[...truncated...]`
+  return `${description.slice(0, DISCORD_DESCRIPTION_LIMIT - TRUNCATION_SUFFIX.length)}${TRUNCATION_SUFFIX}`
 }
 
 export async function publishDiscordAnnouncement({
@@ -57,4 +58,26 @@ export async function publishDiscordAnnouncement({
 
   logger.log("Sent Discord release message")
   return { sent: true as const }
+}
+
+export function createDiscordPublisher({
+  webhookUrl,
+  fetchImpl,
+}: {
+  webhookUrl: string
+  fetchImpl?: typeof fetch
+}): Publisher {
+  return {
+    name: "discord",
+    publish(input) {
+      return publishDiscordAnnouncement({
+        webhookUrl,
+        announcement: input.announcement,
+        branchName: input.branchName,
+        dryRun: input.dryRun,
+        logger: input.logger,
+        fetchImpl,
+      })
+    },
+  }
 }

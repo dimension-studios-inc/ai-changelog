@@ -2,9 +2,11 @@ import { resolveConfig } from "./config"
 import { sendReleaseNotesForRange } from "./release"
 import type { PluginConfig, ReleaseNotesLogger } from "./shared/types"
 
+export type { GatewayModelId } from "@ai-sdk/gateway"
 // biome-ignore lint/performance/noBarrelFile: root package entrypoint intentionally defines the public API.
 export { DEFAULT_EXCLUDE_PATHS, resolveConfig } from "./config"
 export { sendReleaseNotesForRange } from "./release"
+export { resolveRetryReleaseContext, retryReleaseAnnouncement } from "./retry"
 export type { Announcement, PluginConfig, ReleaseNotesLogger, ResolvedConfig } from "./shared/types"
 
 type SemanticReleaseSuccessContext = {

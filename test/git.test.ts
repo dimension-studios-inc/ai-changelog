@@ -7,6 +7,7 @@ const config: ResolvedConfig = {
   discordWebhookUrl: "webhook",
   gatewayApiKey: "key",
   model: "xai/grok-3-beta",
+  prompt: "prompt",
   branches: ["main"],
   includePaths: ["src/"],
   excludePaths: ["src/generated/"],

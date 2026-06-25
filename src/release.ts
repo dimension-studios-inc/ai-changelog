@@ -1,7 +1,32 @@
 import { buildPrompt, generateAnnouncement } from "./ai"
 import { collectReleaseContext } from "./git"
-import { publishDiscordAnnouncement } from "./publishers/discord"
-import type { ReleaseInput } from "./shared/types"
+import { createDiscordPublisher } from "./publishers/discord"
+import { createSlackPublisher } from "./publishers/slack"
+import type { Publisher, PublisherResult, ReleaseInput, ResolvedConfig } from "./shared/types"
+
+function createPublishers(config: ResolvedConfig): Publisher[] {
+  const publishers: Publisher[] = []
+
+  if (config.discordWebhookUrl) {
+    publishers.push(createDiscordPublisher({ webhookUrl: config.discordWebhookUrl }))
+  }
+
+  if (config.slackWebhookUrl) {
+    publishers.push(createSlackPublisher({ webhookUrl: config.slackWebhookUrl }))
+  }
+
+  if (publishers.length === 0 && config.dryRun) {
+    publishers.push(createDiscordPublisher({ webhookUrl: "dry-run" }))
+  }
+
+  return publishers
+}
+
+function combinePublisherResults(results: PublisherResult[]) {
+  if (results.some((result) => result.sent)) return { sent: true as const }
+
+  return results[0] ?? { sent: false as const, reason: "empty-output" as const }
+}
 
 export async function sendReleaseNotesForRange(input: ReleaseInput) {
   if (!input.config.branches.includes(input.branchName)) {
@@ -32,14 +57,22 @@ export async function sendReleaseNotesForRange(input: ReleaseInput) {
     gatewayApiKey: input.config.gatewayApiKey,
     model: input.config.model,
     prompt,
+    systemPrompt: input.config.prompt,
     logger: input.logger,
   })
 
-  return await publishDiscordAnnouncement({
-    webhookUrl: input.config.discordWebhookUrl,
-    announcement,
-    branchName: input.branchName,
-    dryRun: input.config.dryRun,
-    logger: input.logger,
-  })
+  const publishers = createPublishers(input.config)
+  const results = await Promise.all(
+    publishers.map((publisher) =>
+      publisher.publish({
+        announcement,
+        branchName: input.branchName,
+        version: input.version,
+        dryRun: input.config.dryRun,
+        logger: input.logger,
+      })
+    )
+  )
+
+  return combinePublisherResults(results)
 }
