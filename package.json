@@ -41,8 +41,7 @@
     "semantic-release": "^25.0.0"
   },
   "dependencies": {
-    "@ai-sdk/gateway": "^3.0.133",
-    "ai": "^6.0.208",
+    "ai": "^7.0.40",
     "execa": "^9.6.0",
     "zod": "^4.4.3"
   },

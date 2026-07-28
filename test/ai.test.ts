@@ -11,14 +11,11 @@ const mocks = vi.hoisted(() => {
 })
 
 vi.mock("ai", () => ({
+  createGateway: mocks.createGateway,
   generateText: mocks.generateText,
   Output: {
     object: vi.fn((options) => ({ kind: "object", ...options })),
   },
-}))
-
-vi.mock("@ai-sdk/gateway", () => ({
-  createGateway: mocks.createGateway,
 }))
 
 describe("ai", () => {
@@ -56,8 +53,9 @@ describe("ai", () => {
         model: { model: "xai/grok-3-beta" },
         output: expect.objectContaining({ kind: "object" }),
         prompt: "prompt",
-        system: DEFAULT_PROMPT,
+        instructions: DEFAULT_PROMPT,
       })
     )
+    expect(mocks.generateText.mock.calls[0]?.[0]).not.toHaveProperty("system")
   })
 })

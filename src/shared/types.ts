@@ -1,4 +1,4 @@
-import type { GatewayModelId } from "@ai-sdk/gateway"
+import type { GatewayModelId } from "ai"
 
 export type ReleaseNotesLogger = {
   log(message: string): void
