@@ -1,4 +1,4 @@
-import type { GatewayModelId } from "@ai-sdk/gateway"
+import type { GatewayModelId } from "ai"
 import * as z from "zod"
 
 import { DEFAULT_PROMPT } from "./ai"
