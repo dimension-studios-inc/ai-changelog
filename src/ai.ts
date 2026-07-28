@@ -1,6 +1,4 @@
-import type { GatewayModelId } from "@ai-sdk/gateway"
-import { createGateway } from "@ai-sdk/gateway"
-import { generateText, Output } from "ai"
+import { createGateway, type GatewayModelId, generateText, Output } from "ai"
 import * as z from "zod"
 
 import type { Announcement, ReleaseNotesLogger } from "./shared/types"
@@ -66,7 +64,7 @@ export async function generateAnnouncement({
   const gateway = createGateway({ apiKey: gatewayApiKey })
   const { output } = await generateText({
     model: gateway(model),
-    system: systemPrompt,
+    instructions: systemPrompt,
     prompt,
     output: Output.object({ schema: announcementSchema }),
   })

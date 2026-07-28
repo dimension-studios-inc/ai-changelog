@@ -2,7 +2,7 @@
 
 import { realpathSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import type { GatewayModelId } from "@ai-sdk/gateway"
+import type { GatewayModelId } from "ai"
 
 import { DEFAULT_MODEL, type PublisherSelection, type RetryOptions, retryReleaseAnnouncement } from "./retry"
 

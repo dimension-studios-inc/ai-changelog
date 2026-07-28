@@ -1,4 +1,4 @@
-import type { GatewayModelId } from "@ai-sdk/gateway"
+import type { GatewayModelId } from "ai"
 
 import { DEFAULT_MODEL, resolveConfig } from "./config"
 import type { GitRunner } from "./git"
