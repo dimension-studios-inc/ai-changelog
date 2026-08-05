@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.0...v1.0.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* **release:** Publish AI SDK v7 migration ([34a9095](https://github.com/dimension-studios-inc/ai-changelog/commit/34a9095d0699f1f0bacbdaf9c79166ed65636ca4))
+
 # 1.0.0 (2026-06-25)
 
 
