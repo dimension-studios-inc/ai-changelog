@@ -52,7 +52,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
-      id-token: write
+      id-token: write # npm trusted publishing via OIDC (no NPM_TOKEN)
     if: github.ref == 'refs/heads/main-release'
     steps:
       - name: Generate token
@@ -69,15 +69,15 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/setup@v2.0.2
         with:
-          runtime: node@24.19.0
-          cache: true
+          # packageManager in package.json pins the pnpm version.
           install: false
-      # @semantic-release/npm publishes with npm. Trusted publishing (OIDC)
-      # needs setup-node's registry-url; pnpm/setup does not configure that.
-      - name: Setup npm registry
-        uses: actions/setup-node@v6.1.0
+          cache: true
+      # Official Node+npm on PATH for @semantic-release/npm OIDC publish.
+      # Do not set registry-url: it writes an empty _authToken and breaks trusted publishing.
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
         with:
-          registry-url: https://registry.npmjs.org
+          node-version: "24.20.0"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
@@ -88,4 +88,4 @@ jobs:
           AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
           AI_CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.AI_CHANGELOG_DISCORD_WEBHOOK }}
           AI_CHANGELOG_SLACK_WEBHOOK: ${{ secrets.AI_CHANGELOG_SLACK_WEBHOOK }}
-        run: pnpm release
+        run: pnpm exec semantic-release
