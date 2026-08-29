@@ -39,7 +39,7 @@ jobs:
       # Official Node+npm on PATH for @semantic-release/npm OIDC publish.
       # Do not set registry-url: it writes an empty _authToken and breaks trusted publishing.
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: "24.20.0"
       - name: Install dependencies
