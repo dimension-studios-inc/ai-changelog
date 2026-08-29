@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.5...v1.0.6) (2026-08-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency execa to v10 ([#14](https://github.com/dimension-studios-inc/ai-changelog/issues/14)) ([09911d9](https://github.com/dimension-studios-inc/ai-changelog/commit/09911d93802158cde25827c96b7557d137041a44))
+
 ## [1.0.5](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.4...v1.0.5) (2026-08-29)
 
 
