@@ -41,7 +41,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/setup@v2.0.2
         with:
-          runtime: node@24.19.0
+          runtime: node@24.20.0
           cache: true
           install: false
       - name: Install dependencies
