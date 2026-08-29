@@ -10,7 +10,7 @@ on:
       branch:
         description: "Branch name to show in Slack/Discord metadata."
         required: true
-        default: beta
+        default: main
         type: string
       publisher:
         description: "Notification target to retry."
@@ -35,18 +35,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup pnpm
+        uses: pnpm/setup@v2.0.2
         with:
-          node-version: "24.x"
-          cache: npm
+          runtime: node@24.19.0
+          cache: true
+          install: false
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: npm run build
+        run: pnpm build
       - name: Retry changelog notification
         env:
           AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
