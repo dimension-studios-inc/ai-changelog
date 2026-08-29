@@ -53,8 +53,8 @@ function printRetryHelp() {
   console.info(`Usage: ai-changelog retry [options]
 
 Options:
-  --version <version>          Release version, for example 1.0.0-beta.2
-  --tag <tag>                  Release tag, for example v1.0.0-beta.2
+  --version <version>          Release version, for example 1.0.1
+  --tag <tag>                  Release tag, for example v1.0.1
   --branch <branch>            Branch name to show in notification metadata
   --publisher <target>         both, slack, or discord (default: both)
   --dry-run [true|false]       Generate payloads without posting

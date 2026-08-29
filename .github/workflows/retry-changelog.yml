@@ -10,7 +10,7 @@ on:
       branch:
         description: "Branch name to show in Slack/Discord metadata."
         required: true
-        default: beta
+        default: main
         type: string
       publisher:
         description: "Notification target to retry."
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
       - name: Setup pnpm
