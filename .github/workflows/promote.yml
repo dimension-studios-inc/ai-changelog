@@ -10,6 +10,7 @@ jobs:
   promote:
     name: Promote
     runs-on: ubuntu-latest
+    environment: promote
     permissions:
       contents: write
       checks: read
