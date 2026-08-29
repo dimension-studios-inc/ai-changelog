@@ -110,17 +110,17 @@ importers:
   .:
     dependencies:
       ai:
-        specifier: ^7.0.40
+        specifier: 7.0.84
         version: 7.0.84(zod@4.4.3)
       execa:
-        specifier: ^9.6.0
+        specifier: 9.6.1
         version: 9.6.1
       zod:
-        specifier: ^4.4.3
+        specifier: 4.4.3
         version: 4.4.3
     devDependencies:
       '@biomejs/biome':
-        specifier: ^2.5.0
+        specifier: 2.5.11
         version: 2.5.11
       '@commitlint/cli':
         specifier: 21.2.2
@@ -129,25 +129,25 @@ importers:
         specifier: 21.2.2
         version: 21.2.2
       '@semantic-release/changelog':
-        specifier: ^6.0.3
+        specifier: 6.0.3
         version: 6.0.3(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))
       '@semantic-release/commit-analyzer':
-        specifier: ^13.0.1
+        specifier: 13.0.1
         version: 13.0.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/git':
-        specifier: ^10.0.1
+        specifier: 10.0.1
         version: 10.0.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/github':
-        specifier: ^12.0.8
+        specifier: 12.0.9
         version: 12.0.9(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/npm':
-        specifier: ^13.1.5
+        specifier: 13.1.5
         version: 13.1.5(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))
       '@semantic-release/release-notes-generator':
-        specifier: ^14.1.1
+        specifier: 14.1.1
         version: 14.1.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@types/node':
-        specifier: ^24.0.0
+        specifier: 24.13.3
         version: 24.13.3
       knip:
         specifier: 6.32.2
@@ -156,16 +156,16 @@ importers:
         specifier: 2.1.10
         version: 2.1.10
       semantic-release:
-        specifier: ^25.0.0
+        specifier: 25.0.9
         version: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
       tsdown:
-        specifier: ^0.22.3
+        specifier: 0.22.14
         version: 0.22.14(oxc-resolver@11.24.2)(typescript@5.9.3)
       typescript:
-        specifier: ^5.9.0
+        specifier: 5.9.3
         version: 5.9.3
       vitest:
-        specifier: ^4.0.0
+        specifier: 4.1.11
         version: 4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))
 
 packages:
