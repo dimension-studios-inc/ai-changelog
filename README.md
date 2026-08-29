@@ -53,7 +53,7 @@ export default {
     [
       "@dimension-studios/ai-changelog",
       {
-        branches: ["main-release", "beta-release"],
+        branches: ["main-release"],
         model: "openai/gpt-5.4-nano",
         prompt: "Write concise release notes for non-developer readers.",
         discordWebhookUrl: process.env.AI_CHANGELOG_DISCORD_WEBHOOK,
@@ -83,7 +83,7 @@ At least one publisher webhook is required unless `dryRun` is enabled.
 | --- | --- | --- |
 | `model` | `openai/gpt-5.4-nano` | AI SDK Gateway model ID. |
 | `prompt` | built-in release announcement prompt | System prompt used to generate the announcement title and description. |
-| `branches` | `["main-release", "beta-release"]` | Branches allowed to publish announcements. |
+| `branches` | `["main-release"]` | Branches allowed to publish announcements. |
 | `includePaths` | all paths | Git path prefixes to include. |
 | `excludePaths` | common generated/build files | Extra git paths to exclude. |
 | `dryRun` | `false` | Generate and log payloads without posting. |
@@ -141,27 +141,27 @@ If semantic-release succeeds but AI generation or webhook delivery fails, retry 
 release:
 
 ```sh
-npx ai-changelog retry --branch beta
+npx ai-changelog retry --branch main
 ```
 
 By default, the retry command uses the latest reachable git tag, regenerates the AI announcement from the previous tag to
 that release tag, and posts to every configured publisher. Use `--version` for a specific release:
 
 ```sh
-npx ai-changelog retry --version 1.0.0-beta.2 --branch beta
+npx ai-changelog retry --version 1.0.1 --branch main
 ```
 
 Retry only one publisher when the other message was already posted:
 
 ```sh
-npx ai-changelog retry --version 1.0.0-beta.2 --branch beta --publisher slack
-npx ai-changelog retry --version 1.0.0-beta.2 --branch beta --publisher discord
+npx ai-changelog retry --version 1.0.1 --branch main --publisher slack
+npx ai-changelog retry --version 1.0.1 --branch main --publisher discord
 ```
 
 Use `--dry-run` to verify the generated payloads without posting:
 
 ```sh
-npx ai-changelog retry --version 1.0.0-beta.2 --branch beta --dry-run
+npx ai-changelog retry --version 1.0.1 --branch main --dry-run
 ```
 
 The retry command reads the same environment variables as the semantic-release plugin:
@@ -181,8 +181,8 @@ To make retries available from the GitHub Actions UI, add a manual workflow in y
 history, installs dependencies, builds the package, and runs `ai-changelog retry`. Expose only the retry-specific inputs
 operators need:
 
-- `version`: leave blank to retry the latest tag, or enter a version such as `1.0.0-beta.2`.
-- `branch`: the branch name shown in Slack/Discord metadata, for example `beta` or `main`.
+- `version`: leave blank to retry the latest tag, or enter a version such as `1.0.1`.
+- `branch`: the branch name shown in Slack/Discord metadata, for example `main`.
 - `publisher`: `both`, `slack`, or `discord`.
 - `dry_run`: preview payloads without sending webhook requests.
 

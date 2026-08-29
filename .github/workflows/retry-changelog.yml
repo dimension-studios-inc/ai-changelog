@@ -10,7 +10,7 @@ on:
       branch:
         description: "Branch name to show in Slack/Discord metadata."
         required: true
-        default: beta
+        default: main
         type: string
       publisher:
         description: "Notification target to retry."
