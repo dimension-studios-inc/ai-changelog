@@ -26,7 +26,7 @@ Add the plugin after semantic-release has generated release notes:
 
 ```js
 export default {
-  branches: ["main-release"],
+  branches: ["main"],
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
@@ -53,7 +53,7 @@ export default {
     [
       "@dimension-studios/ai-changelog",
       {
-        branches: ["main-release"],
+        branches: ["main"],
         model: "openai/gpt-5.4-nano",
         prompt: "Write concise release notes for non-developer readers.",
         discordWebhookUrl: process.env.AI_CHANGELOG_DISCORD_WEBHOOK,
@@ -83,7 +83,7 @@ At least one publisher webhook is required unless `dryRun` is enabled.
 | --- | --- | --- |
 | `model` | `openai/gpt-5.4-nano` | AI SDK Gateway model ID. |
 | `prompt` | built-in release announcement prompt | System prompt used to generate the announcement title and description. |
-| `branches` | `["main-release"]` | Branches allowed to publish announcements. |
+| `branches` | `["main"]` | Branches allowed to publish announcements. |
 | `includePaths` | all paths | Git path prefixes to include. |
 | `excludePaths` | common generated/build files | Extra git paths to exclude. |
 | `dryRun` | `false` | Generate and log payloads without posting. |

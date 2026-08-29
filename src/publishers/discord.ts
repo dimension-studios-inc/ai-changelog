@@ -33,7 +33,7 @@ export async function publishDiscordAnnouncement({
       {
         title: announcement.title,
         description: clampDescription(announcement.description),
-        color: branchName === "main" || branchName === "main-release" ? 0x0099ff : 0x808080,
+        color: branchName === "main" ? 0x0099ff : 0x808080,
       },
     ],
   }

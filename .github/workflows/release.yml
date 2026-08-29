@@ -4,60 +4,12 @@ on:
   push:
     branches:
       - main
-      - main-release
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  sync:
-    name: Sync
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Generate token
-        id: generate_token
-        uses: actions/create-github-app-token@v3.2.0
-        with:
-          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
-          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
-      - name: Checkout
-        uses: actions/checkout@v7.0.1
-        with:
-          fetch-depth: 0
-          token: ${{ steps.generate_token.outputs.token }}
-      - name: Setup Git Config
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions@example.com"
-      - name: Sync Branch
-        run: |
-          set -euo pipefail
-          SOURCE="${GITHUB_REF_NAME}"
-          TARGET="${GITHUB_REF_NAME}-release"
-
-          git fetch origin "$TARGET:$TARGET"
-          git fetch origin "$SOURCE"
-
-          git checkout "$TARGET"
-          if ! git merge "origin/$SOURCE" --strategy=recursive -X theirs --no-edit; then
-            # -X theirs does not resolve modify/delete (e.g. package-lock.json
-            # removed on main after the pnpm migration).
-            while IFS= read -r file; do
-              if git cat-file -e "origin/${SOURCE}:${file}" 2>/dev/null; then
-                git checkout --theirs -- "$file"
-                git add -- "$file"
-              else
-                git rm -f -- "$file"
-              fi
-            done < <(git diff --name-only --diff-filter=U)
-            git commit --no-edit
-          fi
-          git push origin "$TARGET"
-
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -66,7 +18,6 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write # npm trusted publishing via OIDC (no NPM_TOKEN)
-    if: github.ref == 'refs/heads/main-release'
     steps:
       - name: Generate token
         id: generate_token
@@ -102,3 +53,38 @@ jobs:
           AI_CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.AI_CHANGELOG_DISCORD_WEBHOOK }}
           AI_CHANGELOG_SLACK_WEBHOOK: ${{ secrets.AI_CHANGELOG_SLACK_WEBHOOK }}
         run: pnpm exec semantic-release
+
+  sync:
+    name: Sync
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v3.2.0
+        with:
+          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          token: ${{ steps.generate_token.outputs.token }}
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@example.com"
+      - name: Sync version and changelog to develop
+        run: |
+          set -euo pipefail
+          git fetch origin main develop
+          git checkout develop
+          git checkout origin/main -- CHANGELOG.md package.json pnpm-lock.yaml
+          if git diff --cached --quiet; then
+            echo "develop already matches main version and changelog"
+            exit 0
+          fi
+          git commit -m "chore(release): sync version and changelog from main"
+          git push origin develop

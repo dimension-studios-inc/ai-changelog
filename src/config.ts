@@ -60,7 +60,7 @@ export function resolveConfig(pluginConfig: unknown): ResolvedConfig {
     gatewayApiKey,
     model,
     prompt,
-    branches: parsed.branches ?? ["main-release"],
+    branches: parsed.branches ?? ["main"],
     includePaths: parsed.includePaths ?? [],
     excludePaths: [...DEFAULT_EXCLUDE_PATHS, ...(parsed.excludePaths ?? [])],
     dryRun: parsed.dryRun ?? false,
