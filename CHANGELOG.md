@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.2...v1.0.3) (2026-08-29)
+
+
+### Bug Fixes
+
+* **ci:** configure npm registry for trusted publishing ([529fe95](https://github.com/dimension-studios-inc/ai-changelog/commit/529fe959ee360db063e8fdbb8305c7768a0a0d82))
+
 ## [1.0.2](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.1...v1.0.2) (2026-08-29)
 
 
