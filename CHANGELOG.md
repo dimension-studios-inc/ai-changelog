@@ -1,3 +1,12 @@
+## [1.0.5](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.4...v1.0.5) (2026-08-29)
+
+
+### Bug Fixes
+
+* **ci:** configure npm registry for trusted publishing ([23d59fb](https://github.com/dimension-studios-inc/ai-changelog/commit/23d59fbb6fbde86b3acd85b3cfb4e1a1faf28288))
+* **ci:** resolve modify/delete conflicts when syncing main-release ([1e17762](https://github.com/dimension-studios-inc/ai-changelog/commit/1e1776258108830ae35e7c64344883e7521d8788))
+* **ci:** use setup-node without registry-url for OIDC publish ([567c642](https://github.com/dimension-studios-inc/ai-changelog/commit/567c642b4dd44a254716702535221b4d0a5252ea))
+
 ## [1.0.4](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.3...v1.0.4) (2026-08-29)
 
 
