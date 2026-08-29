@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.3...v1.0.4) (2026-08-29)
+
+
+### Bug Fixes
+
+* **ci:** use setup-node without registry-url for OIDC publish ([e4183d8](https://github.com/dimension-studios-inc/ai-changelog/commit/e4183d8c08ea0cae54cd199028a1e7da7489186d))
+
 ## [1.0.3](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.2...v1.0.3) (2026-08-29)
 
 
