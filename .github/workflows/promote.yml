@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      checks: read
+      statuses: read
     steps:
       - name: Generate token
         id: generate_token
@@ -28,6 +30,25 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@example.com"
+      - name: Require green Check on develop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git fetch origin develop
+          sha="$(git rev-parse origin/develop)"
+          echo "develop tip: $sha"
+
+          conclusion="$(
+            gh api "repos/${GITHUB_REPOSITORY}/commits/${sha}/check-runs?per_page=100" \
+              --jq '[.check_runs[] | select(.name == "Check")] | sort_by(.started_at) | last | .conclusion // "missing"'
+          )"
+
+          if [ "$conclusion" != "success" ]; then
+            echo "Check is not green on origin/develop (conclusion=${conclusion})."
+            exit 1
+          fi
+
       - name: Fast-forward main to develop
         run: |
           set -euo pipefail
