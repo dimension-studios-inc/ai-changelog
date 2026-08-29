@@ -35,7 +35,9 @@
     "test": "vitest run",
     "lint": "biome check .",
     "format": "biome check --write .",
-    "release": "semantic-release"
+    "knip": "knip",
+    "release": "semantic-release",
+    "prepare": "lefthook install"
   },
   "peerDependencies": {
     "semantic-release": "^25.0.0"
@@ -47,6 +49,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.0",
+    "@commitlint/cli": "21.2.2",
+    "@commitlint/config-conventional": "21.2.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
@@ -54,6 +58,8 @@
     "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@types/node": "^24.0.0",
+    "knip": "6.32.2",
+    "lefthook": "2.1.10",
     "semantic-release": "^25.0.0",
     "tsdown": "^0.22.3",
     "typescript": "^5.9.0",
@@ -62,5 +68,6 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
-  }
+  },
+  "packageManager": "pnpm@12.0.0"
 }
