@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.1...v1.0.2) (2026-08-29)
+
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([#8](https://github.com/dimension-studios-inc/ai-changelog/issues/8)) ([5eeb83a](https://github.com/dimension-studios-inc/ai-changelog/commit/5eeb83a5c974381d9d7d2e22a4b2736d706d5b11))
+
 ## [1.0.1](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.0...v1.0.1) (2026-08-05)
 
 
