@@ -1,0 +1,43 @@
+name: Promote
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    name: Promote
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v3.2.0
+        with:
+          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          token: ${{ steps.generate_token.outputs.token }}
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@example.com"
+      - name: Fast-forward main to develop
+        run: |
+          set -euo pipefail
+          git fetch origin main develop
+          git checkout main
+          if ! git merge-base --is-ancestor origin/main origin/develop; then
+            echo "main is not an ancestor of develop; cannot fast-forward."
+            echo "Commits on main that are missing from develop:"
+            git log --oneline origin/develop..origin/main
+            exit 1
+          fi
+          git merge --ff-only origin/develop
+          git push origin main
