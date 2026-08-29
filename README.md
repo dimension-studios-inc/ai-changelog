@@ -208,7 +208,7 @@ Use `dryRun: true` when validating the plugin in CI. The plugin still collects r
 This package is verified with:
 
 ```sh
-pnpm lint
+pnpm check
 pnpm type-check
 pnpm knip
 pnpm test
