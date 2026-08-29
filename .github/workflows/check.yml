@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+# A new push to a PR makes the in-flight run obsolete; don't pay for it twice.
+concurrency:
+  group: check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check
+    # Draft PRs: skip until ready_for_review (still in `on.pull_request.types`).
+    # workflow_dispatch has no pull_request payload, so draft is empty/falsy and this runs.
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/setup@v2.0.2
+        with:
+          runtime: node@24.19.0
+          cache: true
+          install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run biome check
+        run: pnpm lint
+
+      - name: Run type check
+        run: pnpm type-check
+
+      - name: Run knip
+        run: pnpm knip
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build

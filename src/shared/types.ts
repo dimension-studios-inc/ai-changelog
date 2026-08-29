@@ -48,7 +48,7 @@ export type PublisherResult =
   | { sent: true }
   | { sent: false; reason: "dry-run" | "empty-output" | "unsupported-branch" }
 
-export type PublisherInput = {
+type PublisherInput = {
   announcement: Announcement
   branchName: string
   version: string

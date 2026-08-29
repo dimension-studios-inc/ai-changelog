@@ -26,7 +26,7 @@ export default {
     [
       "@semantic-release/git",
       {
-        assets: ["CHANGELOG.md", "package.json", "package-lock.json"],
+        assets: ["CHANGELOG.md", "package.json", "pnpm-lock.yaml"],
         // biome-ignore lint/suspicious/noTemplateCurlyInString: semantic-release expands these placeholders at runtime.
         message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
       },

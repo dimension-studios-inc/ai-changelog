@@ -1,6 +1,6 @@
 # @dimension-studios/ai-changelog
 
-[![npm version](https://img.shields.io/npm/v/%40dimension-studios%2Fai-changelog?style=flat-square)](https://www.npmjs.com/package/@dimension-studios/ai-changelog) [![CI](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/ci.yml) [![Release](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/release.yml/badge.svg)](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/release.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/%40dimension-studios%2Fai-changelog?style=flat-square)](https://www.npmjs.com/package/@dimension-studios/ai-changelog) [![CI](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/check.yml/badge.svg?branch=develop)](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/check.yml) [![Release](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/release.yml/badge.svg)](https://github.com/dimension-studios-inc/ai-changelog/actions/workflows/release.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
 AI-written release announcements for semantic-release. Generate one concise changelog message from the release diff, then publish it to Discord, Slack, or both.
 
@@ -208,10 +208,11 @@ Use `dryRun: true` when validating the plugin in CI. The plugin still collects r
 This package is verified with:
 
 ```sh
-npm run lint
-npm run type-check
-npm test
-npm run build
+pnpm lint
+pnpm type-check
+pnpm knip
+pnpm test
+pnpm build
 ```
 
 ## License
