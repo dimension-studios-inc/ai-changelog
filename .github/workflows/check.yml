@@ -22,6 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Reject pull requests targeting main
+        if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
+        run: |
+          echo "::error::PRs targeting main are not allowed. Open the PR against develop, then run the Promote workflow."
+          exit 1
+
       - name: Checkout code
         uses: actions/checkout@v7.0.1
 

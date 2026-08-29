@@ -1,0 +1,21 @@
+name: Guard main
+
+# Runs from main (pull_request_target), so a PR cannot delete this guard.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  reject:
+    name: Guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reject pull requests targeting main
+        run: |
+          echo "::error::PRs targeting main are not allowed. Open the PR against develop, then run the Promote workflow."
+          exit 1
