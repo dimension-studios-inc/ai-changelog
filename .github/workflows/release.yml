@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
           token: ${{ steps.generate_token.outputs.token }}
       - name: Setup pnpm
-        uses: pnpm/setup@v2.0.2
+        uses: pnpm/setup@v2.1.0
         with:
           # packageManager in package.json pins the pnpm version.
           install: false
