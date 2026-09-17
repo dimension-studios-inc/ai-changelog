@@ -44,7 +44,7 @@
     "semantic-release": "^25.0.0"
   },
   "dependencies": {
-    "ai": "7.0.91",
+    "ai": "7.0.92",
     "execa": "10.0.1",
     "zod": "4.5.4"
   },
