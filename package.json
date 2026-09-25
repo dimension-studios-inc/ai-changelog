@@ -46,7 +46,7 @@
   "dependencies": {
     "ai": "7.0.97",
     "execa": "10.0.1",
-    "zod": "4.5.4"
+    "zod": "4.6.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.13",
