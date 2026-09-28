@@ -60,7 +60,7 @@
     "@semantic-release/release-notes-generator": "14.1.1",
     "@types/node": "24.13.4",
     "knip": "6.35.1",
-    "lefthook": "2.1.12",
+    "lefthook": "2.1.14",
     "semantic-release": "25.0.9",
     "tsdown": "0.22.14",
     "typescript": "7.0.2",
