@@ -35,17 +35,14 @@ jobs:
         with:
           # packageManager in package.json pins the bun version.
           bun-version-file: package.json
-      - name: Install dependencies
-        run: bun ci
-      - name: Build
-        run: bun run build
-      - name: Release
+      - run: bun ci
+      - run: bun run build
+      - run: bunx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
           AI_CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.AI_CHANGELOG_DISCORD_WEBHOOK }}
           AI_CHANGELOG_SLACK_WEBHOOK: ${{ secrets.AI_CHANGELOG_SLACK_WEBHOOK }}
-        run: bunx semantic-release
 
   sync:
     name: Sync
