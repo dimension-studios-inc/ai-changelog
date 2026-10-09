@@ -20,9 +20,6 @@
     "source.fixAll.oxc": "explicit"
   },
 
-  // Show type-aware findings (floating promises, no-unsafe-*, …) in the editor too.
-  "oxc.typeAware": true,
-
   // Ensure oxfmt is used for specific languages
   "[javascript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
