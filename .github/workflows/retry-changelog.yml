@@ -61,4 +61,4 @@ jobs:
             args+=(--version "$RETRY_VERSION")
           fi
 
-          node ./dist/cli.mjs "${args[@]}"
+          bun ./dist/cli.mjs "${args[@]}"
