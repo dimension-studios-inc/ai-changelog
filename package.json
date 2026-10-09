@@ -44,34 +44,34 @@
     "semantic-release": "^25.0.0"
   },
   "dependencies": {
-    "ai": "7.0.84",
+    "ai": "7.0.114",
     "execa": "10.0.1",
-    "zod": "4.4.3"
+    "zod": "4.6.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.11",
-    "@commitlint/cli": "21.2.2",
-    "@commitlint/config-conventional": "21.2.2",
+    "@biomejs/biome": "2.5.14",
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
     "@semantic-release/changelog": "7.0.0",
     "@semantic-release/commit-analyzer": "13.0.1",
     "@semantic-release/git": "11.0.1",
-    "@semantic-release/github": "12.0.9",
-    "@semantic-release/npm": "13.1.5",
+    "@semantic-release/github": "12.0.10",
+    "@semantic-release/npm": "13.2.0",
     "@semantic-release/release-notes-generator": "14.1.1",
-    "@types/node": "24.13.3",
-    "knip": "6.33.0",
-    "lefthook": "2.1.12",
+    "@types/node": "24.13.6",
+    "knip": "6.38.0",
+    "lefthook": "2.1.14",
     "semantic-release": "25.0.9",
     "tsdown": "0.22.14",
     "typescript": "7.0.2",
-    "vitest": "4.1.11"
+    "vitest": "5.0.2"
   },
   "publishConfig": {
     "access": "public",
     "provenance": true
   },
-  "packageManager": "bun@1.4.2",
   "trustedDependencies": [
     "lefthook"
-  ]
+  ],
+  "packageManager": "bun@1.4.2"
 }
