@@ -5,7 +5,7 @@ pre-commit:
       run: bunx oxlint --fix {staged_files}
       stage_fixed: true
     format:
-      glob: "*.{js,ts,cjs,mjs,cts,mts,jsx,tsx,json,jsonc,yml,yaml,toml}"
+      glob: "*.{js,ts,cjs,mjs,cts,mts,jsx,tsx,json,jsonc,yml,yaml,toml,md}"
       run: bunx oxfmt --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
 

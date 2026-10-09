@@ -81,7 +81,7 @@ describe("publishSlackAnnouncement", () => {
     })
 
     const request = fetchImpl.mock.calls[0]?.[1]
-    const body = JSON.parse(String(request?.body))
+    const body = JSON.parse(request?.body as string)
 
     expect(body.blocks[1].text.text).toBe(
       "*Slack release announcements*\n" +
@@ -123,7 +123,7 @@ describe("publishSlackAnnouncement", () => {
     })
 
     const request = fetchImpl.mock.calls[0]?.[1]
-    const body = JSON.parse(String(request?.body))
+    const body = JSON.parse(request?.body as string)
 
     expect(body.text).toHaveLength(4000)
     expect(body.blocks[0].text.text).toHaveLength(150)

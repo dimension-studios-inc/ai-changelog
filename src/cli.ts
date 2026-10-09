@@ -3,11 +3,13 @@
 import { realpathSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 
-import type { GatewayModelId } from "ai"
-
 import { DEFAULT_MODEL, type PublisherSelection, type RetryOptions, retryReleaseAnnouncement } from "./retry"
 
-const publisherSelections = new Set<PublisherSelection>(["both", "discord", "slack"])
+const publisherSelections: ReadonlySet<string> = new Set<PublisherSelection>(["both", "discord", "slack"])
+
+function isPublisherSelection(value: string): value is PublisherSelection {
+  return publisherSelections.has(value)
+}
 
 function readValue(args: string[], index: number, flag: string) {
   const value = args[index + 1]
@@ -94,8 +96,8 @@ export function parseRetryArgs(args: string[]): RetryOptions {
         index += 1
         break
       case "--publisher": {
-        const publisher = readValue(args, index, arg) as PublisherSelection
-        if (!publisherSelections.has(publisher)) {
+        const publisher = readValue(args, index, arg)
+        if (!isPublisherSelection(publisher)) {
           throw new Error("--publisher must be one of both, slack, or discord")
         }
         parsed.publisher = publisher
@@ -121,7 +123,7 @@ export function parseRetryArgs(args: string[]): RetryOptions {
         index += 1
         break
       case "--model":
-        parsed.model = readValue(args, index, arg) as GatewayModelId
+        parsed.model = readValue(args, index, arg)
         index += 1
         break
       case "--prompt":

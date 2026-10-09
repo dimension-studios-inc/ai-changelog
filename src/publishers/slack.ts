@@ -15,7 +15,7 @@ function buildFallbackText(announcement: Announcement) {
 }
 
 function formatInlineMarkdown(text: string) {
-  return text.replace(/\*\*([^*]+)\*\*/g, "*$1*")
+  return text.replaceAll(/\*\*([^*]+)\*\*/g, "*$1*")
 }
 
 function formatSlackMrkdwn(markdown: string) {

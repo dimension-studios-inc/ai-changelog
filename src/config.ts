@@ -20,7 +20,7 @@ export const DEFAULT_EXCLUDE_PATHS = [
 export const DEFAULT_MODEL = "openai/gpt-5.4-nano" satisfies GatewayModelId
 
 const nonEmptyStringSchema = z.string().trim().min(1)
-const gatewayModelSchema = nonEmptyStringSchema.transform((value) => value as GatewayModelId)
+const gatewayModelSchema = nonEmptyStringSchema.transform((value): GatewayModelId => value)
 
 const pluginConfigSchema = z.object({
   discordWebhookUrl: nonEmptyStringSchema.optional(),

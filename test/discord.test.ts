@@ -74,7 +74,7 @@ describe("publishDiscordAnnouncement", () => {
     })
 
     const request = fetchImpl.mock.calls[0]?.[1]
-    const body = JSON.parse(String(request?.body))
+    const body = JSON.parse(request?.body as string)
 
     expect(body.embeds[0].description).toHaveLength(4096)
     expect(body.embeds[0].description).toContain("[...truncated...]")
