@@ -7,7 +7,6 @@
     "perf": "error"
   },
   "options": {
-    "typeAware": true,
     "reportUnusedDisableDirectives": "error",
     "denyWarnings": true
   },
