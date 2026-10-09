@@ -4,5 +4,12 @@
   "baseBranchPatterns": ["develop"],
   "automerge": true,
   "platformAutomerge": true,
-  "minimumReleaseAge": "14 days"
+  "minimumReleaseAge": "14 days",
+  "packageRules": [
+    {
+      "description": "oxlint and oxlint-tsgolint must stay compatible, so update the oxc toolchain in one PR",
+      "groupName": "oxc",
+      "matchPackageNames": ["oxlint", "oxlint-tsgolint", "oxfmt"]
+    }
+  ]
 }
