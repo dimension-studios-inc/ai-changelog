@@ -16,8 +16,7 @@
       ".github/**/*.yml",
       "!dist",
       "!node_modules",
-      "!coverage",
-      "!pnpm-lock.yaml"
+      "!coverage"
     ]
   },
   "formatter": {

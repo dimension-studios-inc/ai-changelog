@@ -70,5 +70,8 @@
     "access": "public",
     "provenance": true
   },
-  "packageManager": "pnpm@12.7.0"
+  "trustedDependencies": [
+    "lefthook"
+  ],
+  "packageManager": "bun@1.4.2"
 }

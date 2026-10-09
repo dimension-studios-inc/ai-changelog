@@ -208,11 +208,11 @@ Use `dryRun: true` when validating the plugin in CI. The plugin still collects r
 This package is verified with:
 
 ```sh
-pnpm check
-pnpm type-check
-pnpm knip
-pnpm test
-pnpm build
+bun run check
+bun run type-check
+bun run knip
+bun run test
+bun run build
 ```
 
 ## License
