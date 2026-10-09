@@ -50,7 +50,7 @@ export function resolveConfig(pluginConfig: unknown): ResolvedConfig {
   if (!(discordWebhookUrl || slackWebhookUrl || parsed.dryRun)) {
     throw new Error(
       "Missing notification webhook URL. Set discordWebhookUrl, slackWebhookUrl, " +
-        "AI_CHANGELOG_DISCORD_WEBHOOK, or AI_CHANGELOG_SLACK_WEBHOOK."
+        "AI_CHANGELOG_DISCORD_WEBHOOK, or AI_CHANGELOG_SLACK_WEBHOOK.",
     )
   }
 

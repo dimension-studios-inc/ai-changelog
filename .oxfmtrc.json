@@ -1,8 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "printWidth": 120,
   "semi": false,
-  "trailingComma": "es5",
   "sortImports": true,
-  "ignorePatterns": ["dist", "node_modules", "coverage", "bun.lock", "*.md"]
+  "ignorePatterns": ["CHANGELOG.md"]
 }

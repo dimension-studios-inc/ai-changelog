@@ -54,7 +54,7 @@ describe("ai", () => {
         output: expect.objectContaining({ kind: "object" }),
         prompt: "prompt",
         instructions: DEFAULT_PROMPT,
-      })
+      }),
     )
     expect(mocks.generateText.mock.calls[0]?.[0]).not.toHaveProperty("system")
   })

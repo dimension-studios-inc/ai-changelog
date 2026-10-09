@@ -26,7 +26,7 @@ describe("parseRetryArgs", () => {
         "src/,packages/",
         "--exclude-path",
         "dist/",
-      ])
+      ]),
     ).toEqual(
       expect.objectContaining({
         version: "1.0.0-beta.2",
@@ -37,7 +37,7 @@ describe("parseRetryArgs", () => {
         slackWebhookUrl: "https://slack.example/webhook",
         includePaths: ["src/,packages/"],
         excludePaths: ["dist/"],
-      })
+      }),
     )
   })
 
@@ -46,14 +46,14 @@ describe("parseRetryArgs", () => {
   })
 
   it("rejects conflicting version and tag options", () => {
-    expect(() => parseRetryArgs(["--version", "1.0.0", "--tag", "v1.0.0", "--branch", "main"])).toThrow(
-      "Use either --version or --tag, not both"
-    )
+    expect(() =>
+      parseRetryArgs(["--version", "1.0.0", "--tag", "v1.0.0", "--branch", "main"]),
+    ).toThrow("Use either --version or --tag, not both")
   })
 
   it("rejects invalid publisher values", () => {
     expect(() => parseRetryArgs(["--branch", "main", "--publisher", "teams"])).toThrow(
-      "--publisher must be one of both, slack, or discord"
+      "--publisher must be one of both, slack, or discord",
     )
   })
 

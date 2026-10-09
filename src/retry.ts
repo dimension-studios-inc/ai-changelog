@@ -37,7 +37,15 @@ function trimLeadingV(value: string) {
   return value.replace(/^v/, "")
 }
 
-async function resolveReleaseTag({ version, tag, git }: { version?: string; tag?: string; git: GitRunner }) {
+async function resolveReleaseTag({
+  version,
+  tag,
+  git,
+}: {
+  version?: string
+  tag?: string
+  git: GitRunner
+}) {
   if (tag) return tag
   if (version) return `v${trimLeadingV(version)}`
   return await git(["describe", "--tags", "--abbrev=0"])
@@ -78,7 +86,9 @@ export async function resolveRetryReleaseContext({
   const releaseTag = await resolveReleaseTag({ version, tag, git })
   const releaseVersion = resolveReleaseVersion({ version, tag: releaseTag })
   const to = await git(["rev-list", "-n", "1", releaseTag])
-  const from = (await maybeRunGit(git, ["describe", "--tags", "--abbrev=0", `${releaseTag}^`])) ?? EMPTY_TREE_GIT_HEAD
+  const from =
+    (await maybeRunGit(git, ["describe", "--tags", "--abbrev=0", `${releaseTag}^`])) ??
+    EMPTY_TREE_GIT_HEAD
   const releaseNotes = extractReleaseNotes(await git(["show", "-s", "--format=%B", releaseTag]))
 
   return {

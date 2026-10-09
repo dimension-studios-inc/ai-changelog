@@ -55,7 +55,7 @@ describe("publishSlackAnnouncement", () => {
             },
           ],
         }),
-      })
+      }),
     )
   })
 
@@ -86,7 +86,7 @@ describe("publishSlackAnnouncement", () => {
     expect(body.blocks[1].text.text).toBe(
       "*Slack release announcements*\n" +
         "• Added *Slack* support.\n" +
-        "• Added `AI_CHANGELOG_SLACK_WEBHOOK` for incoming webhooks."
+        "• Added `AI_CHANGELOG_SLACK_WEBHOOK` for incoming webhooks.",
     )
   })
 
@@ -143,7 +143,7 @@ describe("publishSlackAnnouncement", () => {
         dryRun: false,
         logger: console,
         fetchImpl,
-      })
+      }),
     ).rejects.toThrow("Slack webhook failed: 404 missing webhook")
   })
 })

@@ -71,22 +71,22 @@ export default {
 
 At least one publisher webhook is required unless `dryRun` is enabled.
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `discordWebhookUrl` | `AI_CHANGELOG_DISCORD_WEBHOOK` | Discord webhook URL. |
-| `slackWebhookUrl` | `AI_CHANGELOG_SLACK_WEBHOOK` | Slack incoming webhook URL. |
-| `gatewayApiKey` | `AI_GATEWAY_API_KEY` | Vercel AI Gateway API key. |
+| Option              | Default                        | Description                 |
+| ------------------- | ------------------------------ | --------------------------- |
+| `discordWebhookUrl` | `AI_CHANGELOG_DISCORD_WEBHOOK` | Discord webhook URL.        |
+| `slackWebhookUrl`   | `AI_CHANGELOG_SLACK_WEBHOOK`   | Slack incoming webhook URL. |
+| `gatewayApiKey`     | `AI_GATEWAY_API_KEY`           | Vercel AI Gateway API key.  |
 
 ### Optional Options
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `model` | `openai/gpt-5.4-nano` | AI SDK Gateway model ID. |
-| `prompt` | built-in release announcement prompt | System prompt used to generate the announcement title and description. |
-| `branches` | `["main"]` | Branches allowed to publish announcements. |
-| `includePaths` | all paths | Git path prefixes to include. |
-| `excludePaths` | common generated/build files | Extra git paths to exclude. |
-| `dryRun` | `false` | Generate and log payloads without posting. |
+| Option         | Default                              | Description                                                            |
+| -------------- | ------------------------------------ | ---------------------------------------------------------------------- |
+| `model`        | `openai/gpt-5.4-nano`                | AI SDK Gateway model ID.                                               |
+| `prompt`       | built-in release announcement prompt | System prompt used to generate the announcement title and description. |
+| `branches`     | `["main"]`                           | Branches allowed to publish announcements.                             |
+| `includePaths` | all paths                            | Git path prefixes to include.                                          |
+| `excludePaths` | common generated/build files         | Extra git paths to exclude.                                            |
+| `dryRun`       | `false`                              | Generate and log payloads without posting.                             |
 
 ## Publishers
 
@@ -95,12 +95,17 @@ At least one publisher webhook is required unless `dryRun` is enabled.
 Discord messages are sent as embeds with the generated title and description.
 
 ```js
-[
-  "@dimension-studios/ai-changelog",
-  {
-    discordWebhookUrl: process.env.AI_CHANGELOG_DISCORD_WEBHOOK,
-  },
-]
+export default {
+  plugins: [
+    // ...other semantic-release plugins
+    [
+      "@dimension-studios/ai-changelog",
+      {
+        discordWebhookUrl: process.env.AI_CHANGELOG_DISCORD_WEBHOOK,
+      },
+    ],
+  ],
+}
 ```
 
 ### Slack
@@ -113,12 +118,17 @@ Slack messages use Block Kit:
 - top-level `text` fallback for notifications and accessibility
 
 ```js
-[
-  "@dimension-studios/ai-changelog",
-  {
-    slackWebhookUrl: process.env.AI_CHANGELOG_SLACK_WEBHOOK,
-  },
-]
+export default {
+  plugins: [
+    // ...other semantic-release plugins
+    [
+      "@dimension-studios/ai-changelog",
+      {
+        slackWebhookUrl: process.env.AI_CHANGELOG_SLACK_WEBHOOK,
+      },
+    ],
+  ],
+}
 ```
 
 Create a Slack incoming webhook from your Slack app settings, then store the generated URL as `AI_CHANGELOG_SLACK_WEBHOOK`.
@@ -126,13 +136,18 @@ Create a Slack incoming webhook from your Slack app settings, then store the gen
 ### Discord and Slack
 
 ```js
-[
-  "@dimension-studios/ai-changelog",
-  {
-    discordWebhookUrl: process.env.AI_CHANGELOG_DISCORD_WEBHOOK,
-    slackWebhookUrl: process.env.AI_CHANGELOG_SLACK_WEBHOOK,
-  },
-]
+export default {
+  plugins: [
+    // ...other semantic-release plugins
+    [
+      "@dimension-studios/ai-changelog",
+      {
+        discordWebhookUrl: process.env.AI_CHANGELOG_DISCORD_WEBHOOK,
+        slackWebhookUrl: process.env.AI_CHANGELOG_SLACK_WEBHOOK,
+      },
+    ],
+  ],
+}
 ```
 
 ## Retry Notifications
@@ -197,12 +212,17 @@ For a complete example, see this repository's
 Use `dryRun: true` when validating the plugin in CI. The plugin still collects release context and generates notification payloads, but it does not call any webhooks.
 
 ```js
-[
-  "@dimension-studios/ai-changelog",
-  {
-    dryRun: true,
-  },
-]
+export default {
+  plugins: [
+    // ...other semantic-release plugins
+    [
+      "@dimension-studios/ai-changelog",
+      {
+        dryRun: true,
+      },
+    ],
+  ],
+}
 ```
 
 This package is verified with:

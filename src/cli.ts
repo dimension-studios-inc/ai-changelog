@@ -3,9 +3,18 @@
 import { realpathSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 
-import { DEFAULT_MODEL, type PublisherSelection, type RetryOptions, retryReleaseAnnouncement } from "./retry"
+import {
+  DEFAULT_MODEL,
+  type PublisherSelection,
+  type RetryOptions,
+  retryReleaseAnnouncement,
+} from "./retry"
 
-const publisherSelections: ReadonlySet<string> = new Set<PublisherSelection>(["both", "discord", "slack"])
+const publisherSelections: ReadonlySet<string> = new Set<PublisherSelection>([
+  "both",
+  "discord",
+  "slack",
+])
 
 function isPublisherSelection(value: string): value is PublisherSelection {
   return publisherSelections.has(value)

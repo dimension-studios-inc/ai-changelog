@@ -39,7 +39,7 @@ describe("publishDiscordAnnouncement", () => {
         body: JSON.stringify({
           embeds: [{ title: "Release", description: "Shipped", color: 0x0099ff }],
         }),
-      })
+      }),
     )
   })
 
@@ -92,7 +92,7 @@ describe("publishDiscordAnnouncement", () => {
         dryRun: false,
         logger: console,
         fetchImpl,
-      })
+      }),
     ).rejects.toThrow("Discord webhook failed: 404 missing webhook")
   })
 })

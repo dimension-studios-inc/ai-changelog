@@ -93,7 +93,7 @@ describe("retry release announcements", () => {
           slackWebhookUrl: "https://slack.example/webhook",
           branches: ["beta"],
         }),
-      })
+      }),
     )
   })
 
@@ -117,7 +117,7 @@ describe("retry release announcements", () => {
         },
         logger: console,
         git,
-      })
+      }),
     ).rejects.toThrow("Missing slack webhook URL for retry")
   })
 })

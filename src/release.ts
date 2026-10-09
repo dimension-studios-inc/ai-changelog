@@ -70,8 +70,8 @@ export async function sendReleaseNotesForRange(input: ReleaseInput) {
         version: input.version,
         dryRun: input.config.dryRun,
         logger: input.logger,
-      })
-    )
+      }),
+    ),
   )
 
   return combinePublisherResults(results)

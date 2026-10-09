@@ -42,6 +42,13 @@ describe("git helpers", () => {
       changedFiles: ["src/index.ts"],
       patch: "patch",
     })
-    expect(git).toHaveBeenCalledWith(["diff", "from..to", "--name-only", "--", "src/", ":(exclude)src/generated/"])
+    expect(git).toHaveBeenCalledWith([
+      "diff",
+      "from..to",
+      "--name-only",
+      "--",
+      "src/",
+      ":(exclude)src/generated/",
+    ])
   })
 })

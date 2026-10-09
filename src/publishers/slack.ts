@@ -11,7 +11,10 @@ function clamp(text: string, maxLength: number) {
 }
 
 function buildFallbackText(announcement: Announcement) {
-  return clamp(`${announcement.title}\n\n${formatSlackMrkdwn(announcement.description)}`, SLACK_FALLBACK_LIMIT)
+  return clamp(
+    `${announcement.title}\n\n${formatSlackMrkdwn(announcement.description)}`,
+    SLACK_FALLBACK_LIMIT,
+  )
 }
 
 function formatInlineMarkdown(text: string) {

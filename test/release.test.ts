@@ -114,21 +114,25 @@ describe("sendReleaseNotesForRange", () => {
       expect.objectContaining({
         prompt: "prompt",
         systemPrompt: "system prompt",
-      })
+      }),
     )
-    expect(mocks.createDiscordPublisher).toHaveBeenCalledWith({ webhookUrl: "https://discord.example/webhook" })
-    expect(mocks.createSlackPublisher).toHaveBeenCalledWith({ webhookUrl: "https://slack.example/webhook" })
+    expect(mocks.createDiscordPublisher).toHaveBeenCalledWith({
+      webhookUrl: "https://discord.example/webhook",
+    })
+    expect(mocks.createSlackPublisher).toHaveBeenCalledWith({
+      webhookUrl: "https://slack.example/webhook",
+    })
     expect(mocks.discordPublish).toHaveBeenCalledWith(
       expect.objectContaining({
         announcement: { title: "Release", description: "Shipped" },
         version: "1.2.3",
-      })
+      }),
     )
     expect(mocks.slackPublish).toHaveBeenCalledWith(
       expect.objectContaining({
         announcement: { title: "Release", description: "Shipped" },
         version: "1.2.3",
-      })
+      }),
     )
   })
 })
