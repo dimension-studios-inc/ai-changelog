@@ -35,7 +35,7 @@ const pluginConfigSchema = z.object({
 })
 
 function readEnv(name: string) {
-  // biome-ignore lint/style/noProcessEnv: this is the package's centralized environment fallback.
+  // oxlint-disable-next-line node/no-process-env -- this is the package's centralized environment fallback.
   return process.env[name]?.trim() || undefined
 }
 

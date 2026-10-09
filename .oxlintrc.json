@@ -1,0 +1,49 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "node", "vitest"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "env": {
+    "builtin": true,
+    "node": true,
+    "es2024": true
+  },
+  "ignorePatterns": ["dist", "coverage"],
+  "rules": {
+    "eslint/no-unneeded-ternary": "error",
+    "eslint/prefer-arrow-callback": "error",
+    "eslint/prefer-regex-literals": "error",
+    "unicorn/no-useless-switch-case": "error",
+    "unicorn/prefer-date-now": "error",
+    "unicorn/prefer-array-index-of": "error",
+
+    "eslint/no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_", "ignoreRestSiblings": true }],
+    "eslint/radix": "error",
+
+    "oxc/no-accumulating-spread": "error",
+    "oxc/no-barrel-file": ["error", { "threshold": 0 }],
+
+    "import/no-commonjs": "error",
+    "typescript/no-non-null-assertion": "error",
+    "eslint/no-param-reassign": "error",
+    "node/no-process-env": "error",
+    "eslint/prefer-const": "error",
+    "eslint/prefer-exponentiation-operator": "error",
+    "typescript/consistent-type-imports": "error",
+    "unicorn/prefer-node-protocol": "error",
+    "eslint/prefer-template": "error",
+
+    "typescript/no-invalid-void-type": "error",
+    "eslint/no-console": ["error", { "allow": ["error", "info", "warn"] }],
+    "typescript/no-explicit-any": "error",
+    "unicorn/prefer-number-properties": "error",
+    "import/no-cycle": "error",
+    "typescript/ban-ts-comment": "error",
+    "eslint/no-template-curly-in-string": "error",
+
+    "vitest/require-mock-type-parameters": "off",
+    "vitest/require-to-throw-message": "off"
+  }
+}

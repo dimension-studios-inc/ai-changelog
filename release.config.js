@@ -20,7 +20,7 @@ export default {
       "@semantic-release/git",
       {
         assets: ["CHANGELOG.md", "package.json", "bun.lock"],
-        // biome-ignore lint/suspicious/noTemplateCurlyInString: semantic-release expands these placeholders at runtime.
+        // oxlint-disable-next-line eslint/no-template-curly-in-string -- semantic-release expands these placeholders at runtime.
         message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
       },
     ],

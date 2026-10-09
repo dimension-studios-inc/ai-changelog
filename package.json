@@ -2,21 +2,23 @@
   "name": "@dimension-studios/ai-changelog",
   "version": "1.0.7",
   "description": "Semantic-release plugin that generates AI release notes and posts them to Discord.",
-  "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/dimension-studios-inc/ai-changelog.git"
   },
-  "engines": {
-    "node": "^22.14.0 || >=24.10.0"
-  },
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
-  "source": "./src/index.ts",
   "bin": {
     "ai-changelog": "dist/cli.mjs"
   },
+  "source": "./src/index.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -24,24 +26,20 @@
       "default": "./dist/index.mjs"
     }
   },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsdown",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
-    "check": "biome check",
-    "lint": "biome lint --",
-    "format": "biome format --write",
+    "check": "oxlint --report-unused-disable-directives-severity=error && oxfmt --check",
+    "lint": "oxlint",
+    "format": "oxfmt",
     "knip": "knip",
     "release": "semantic-release",
     "prepare": "lefthook install"
-  },
-  "peerDependencies": {
-    "semantic-release": "^25.0.0"
   },
   "dependencies": {
     "ai": "7.0.114",
@@ -49,7 +47,6 @@
     "zod": "4.6.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.14",
     "@commitlint/cli": "21.2.3",
     "@commitlint/config-conventional": "21.2.3",
     "@semantic-release/changelog": "7.0.0",
@@ -61,17 +58,21 @@
     "@types/node": "26.6.2",
     "knip": "6.38.0",
     "lefthook": "2.1.14",
+    "oxfmt": "0.70.0",
+    "oxlint": "1.85.0",
     "semantic-release": "25.0.9",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "vitest": "5.0.2"
   },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
+  "peerDependencies": {
+    "semantic-release": "^25.0.0"
   },
+  "engines": {
+    "node": "^22.14.0 || >=24.10.0"
+  },
+  "packageManager": "bun@1.4.2",
   "trustedDependencies": [
     "lefthook"
-  ],
-  "packageManager": "bun@1.4.2"
+  ]
 }
