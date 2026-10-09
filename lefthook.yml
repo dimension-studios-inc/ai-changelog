@@ -1,5 +1,6 @@
 pre-commit:
   commands:
+    # The hook runs the syntactic rules only, to stay fast; `bun run check` (and CI) run the full type-aware pass.
     lint:
       glob: "*.{js,ts,cjs,mjs,cts,mts,jsx,tsx}"
       run: bunx oxlint --fix {staged_files}
