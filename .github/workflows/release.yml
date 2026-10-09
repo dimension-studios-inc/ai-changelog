@@ -30,10 +30,11 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ steps.generate_token.outputs.token }}
-      # Also puts the official Node+npm on PATH for @semantic-release/npm OIDC publish.
-      # It sets no registry-url: that writes an empty _authToken and breaks trusted publishing.
       - name: Setup bun
-        uses: ./.github/actions/setup-bun
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          # packageManager in package.json pins the bun version.
+          bun-version-file: package.json
       - name: Install dependencies
         run: bun ci
       - name: Build

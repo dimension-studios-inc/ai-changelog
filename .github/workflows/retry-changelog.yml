@@ -39,7 +39,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup bun
-        uses: ./.github/actions/setup-bun
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          # packageManager in package.json pins the bun version.
+          bun-version-file: package.json
       - name: Install dependencies
         run: bun install --frozen-lockfile
       - name: Build
