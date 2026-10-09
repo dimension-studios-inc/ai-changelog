@@ -1,0 +1,7 @@
+[install]
+# Pin exact versions on `bun add` (renovate keeps them current).
+exact = true
+# pnpm-style layout: packages only see what they declare (no phantom deps).
+linker = "isolated"
+# Seconds (2 days). Versions already in bun.lock are not re-checked.
+minimumReleaseAge = 172800
