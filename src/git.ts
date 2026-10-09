@@ -24,8 +24,14 @@ function pathArgs(paths: string[]) {
   return paths.length > 0 ? paths : ["."]
 }
 
-export function isIncludedPath(file: string, config: Pick<ResolvedConfig, "includePaths" | "excludePaths">) {
-  if (config.includePaths.length > 0 && !config.includePaths.some((path) => file.startsWith(path))) {
+export function isIncludedPath(
+  file: string,
+  config: Pick<ResolvedConfig, "includePaths" | "excludePaths">,
+) {
+  if (
+    config.includePaths.length > 0 &&
+    !config.includePaths.some((path) => file.startsWith(path))
+  ) {
     return false
   }
 
@@ -47,12 +53,25 @@ export async function collectReleaseContext({
   git?: GitRunner
 }): Promise<ReleaseContext> {
   const range = `${from}..${to}`
-  const diffArgs = ["diff", range, "--", ...pathArgs(config.includePaths), ...excludeArgs(config.excludePaths)]
+  const diffArgs = [
+    "diff",
+    range,
+    "--",
+    ...pathArgs(config.includePaths),
+    ...excludeArgs(config.excludePaths),
+  ]
 
   const [diffStat, commitList, changedFilesOutput, patch] = await Promise.all([
     git(["diff", range, "--stat"]),
     git(["log", range, "--oneline", "--no-decorate"]),
-    git(["diff", range, "--name-only", "--", ...pathArgs(config.includePaths), ...excludeArgs(config.excludePaths)]),
+    git([
+      "diff",
+      range,
+      "--name-only",
+      "--",
+      ...pathArgs(config.includePaths),
+      ...excludeArgs(config.excludePaths),
+    ]),
     git([...diffArgs, "--minimal"]),
   ])
 

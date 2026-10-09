@@ -27,7 +27,7 @@ describe("semantic-release plugin", () => {
         nextRelease: { gitHead: "to", version: "1.2.3", notes: "notes" },
         branch: { name: "main" },
         logger: console,
-      }
+      },
     )
 
     expect(sendReleaseNotesForRange).toHaveBeenCalledWith({
@@ -61,14 +61,14 @@ describe("semantic-release plugin", () => {
         nextRelease: { gitHead: "to", version: "1.0.0", notes: "notes" },
         branch: { name: "main" },
         logger: console,
-      }
+      },
     )
 
     expect(sendReleaseNotesForRange).toHaveBeenCalledWith(
       expect.objectContaining({
         from: "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
         to: "to",
-      })
+      }),
     )
   })
 })

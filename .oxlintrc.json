@@ -1,0 +1,116 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "node", "promise", "vitest"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "reportUnusedDisableDirectives": "error",
+    "denyWarnings": true
+  },
+  "env": {
+    "builtin": true,
+    "node": true
+  },
+  "rules": {
+    // Type-aware rules (typescript-eslint `recommended-type-checked` and `strict-type-checked` picks).
+    "typescript/no-misused-promises": "error",
+    "typescript/no-deprecated": "error",
+    "typescript/only-throw-error": "error",
+    "typescript/prefer-promise-reject-errors": "error",
+    "typescript/require-await": "error",
+    "typescript/restrict-plus-operands": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "typescript/use-unknown-in-catch-callback-variable": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/consistent-type-exports": "error",
+    "typescript/prefer-includes": "error",
+    "typescript/prefer-string-starts-ends-with": "error",
+    "typescript/prefer-find": "error",
+
+    // TypeScript syntax rules.
+    "typescript/ban-ts-comment": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-import-type-side-effects": "error",
+
+    // Core JavaScript rules.
+    "eslint/eqeqeq": "error",
+    "eslint/no-console": ["error", { "allow": ["error", "info", "warn"] }],
+    "eslint/no-param-reassign": "error",
+    "eslint/no-var": "error",
+    "eslint/object-shorthand": "error",
+    "eslint/prefer-const": "error",
+    "eslint/prefer-exponentiation-operator": "error",
+    "eslint/prefer-object-spread": "error",
+    "eslint/prefer-rest-params": "error",
+    "eslint/prefer-spread": "error",
+    "eslint/prefer-template": "error",
+    "eslint/radix": "error",
+    "eslint/no-useless-rename": "error",
+    "eslint/no-useless-computed-key": "error",
+    "eslint/no-template-curly-in-string": "error",
+
+    // Unicorn: modern built-ins and error hygiene.
+    "unicorn/prefer-node-protocol": "error",
+    "unicorn/prefer-number-properties": "error",
+    "unicorn/prefer-string-replace-all": "error",
+    "unicorn/prefer-string-slice": "error",
+    "unicorn/prefer-array-flat-map": "error",
+    "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-at": "error",
+    "unicorn/prefer-date-now": "error",
+    "unicorn/prefer-optional-catch-binding": "error",
+    "unicorn/prefer-structured-clone": "error",
+    "unicorn/prefer-type-error": "error",
+    "unicorn/throw-new-error": "error",
+    "unicorn/error-message": "error",
+    "unicorn/no-useless-switch-case": "error",
+
+    // Modules.
+    "import/no-cycle": "error",
+    "import/no-commonjs": "error",
+    "import/no-duplicates": "error",
+    "import/no-mutable-exports": "error",
+    "oxc/no-barrel-file": "error",
+
+    // Node.js: keep environment access centralized in src/config.ts.
+    "node/no-process-env": "error",
+
+    // Promises.
+    "promise/prefer-await-to-then": "error",
+    "promise/no-nesting": "error"
+  },
+  "overrides": [
+    {
+      "files": ["test/**/*.ts"],
+      "rules": {
+        // Mocks are typed by their implementation; explicit type parameters add noise.
+        "vitest/require-mock-type-parameters": "off",
+        // Async mock implementations without `await` intentionally return promises.
+        "typescript/require-await": "off",
+        // Mocks, asymmetric matchers (`expect.objectContaining`) and parsed JSON payloads are loosely typed.
+        "typescript/no-unsafe-argument": "off",
+        "typescript/no-unsafe-assignment": "off",
+        "typescript/no-unsafe-call": "off",
+        "typescript/no-unsafe-member-access": "off",
+        "typescript/no-unsafe-return": "off",
+        "typescript/no-unsafe-type-assertion": "off",
+        "vitest/consistent-test-it": ["error", { "fn": "it" }],
+        "vitest/no-disabled-tests": "error",
+        "vitest/no-focused-tests": "error",
+        "vitest/prefer-to-be": "error",
+        "vitest/prefer-to-have-length": "error",
+        "vitest/prefer-hooks-on-top": "error"
+      }
+    }
+  ]
+}

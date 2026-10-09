@@ -1,9 +1,12 @@
-# https://biomejs.dev/recipes/git-hooks/
 pre-commit:
   commands:
-    check:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
-      run: bunx biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+    lint:
+      glob: "*.{js,ts,cjs,mjs,cts,mts,jsx,tsx}"
+      run: bunx oxlint --fix {staged_files}
+      stage_fixed: true
+    format:
+      glob: "*.{js,ts,cjs,mjs,cts,mts,jsx,tsx,json,jsonc,yml,yaml,toml,md}"
+      run: bunx oxfmt --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
 
 commit-msg:

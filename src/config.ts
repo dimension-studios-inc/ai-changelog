@@ -20,7 +20,7 @@ export const DEFAULT_EXCLUDE_PATHS = [
 export const DEFAULT_MODEL = "openai/gpt-5.4-nano" satisfies GatewayModelId
 
 const nonEmptyStringSchema = z.string().trim().min(1)
-const gatewayModelSchema = nonEmptyStringSchema.transform((value) => value as GatewayModelId)
+const gatewayModelSchema = nonEmptyStringSchema.transform((value): GatewayModelId => value)
 
 const pluginConfigSchema = z.object({
   discordWebhookUrl: nonEmptyStringSchema.optional(),
@@ -35,7 +35,7 @@ const pluginConfigSchema = z.object({
 })
 
 function readEnv(name: string) {
-  // biome-ignore lint/style/noProcessEnv: this is the package's centralized environment fallback.
+  // oxlint-disable-next-line node/no-process-env -- this is the package's centralized environment fallback.
   return process.env[name]?.trim() || undefined
 }
 
@@ -50,7 +50,7 @@ export function resolveConfig(pluginConfig: unknown): ResolvedConfig {
   if (!(discordWebhookUrl || slackWebhookUrl || parsed.dryRun)) {
     throw new Error(
       "Missing notification webhook URL. Set discordWebhookUrl, slackWebhookUrl, " +
-        "AI_CHANGELOG_DISCORD_WEBHOOK, or AI_CHANGELOG_SLACK_WEBHOOK."
+        "AI_CHANGELOG_DISCORD_WEBHOOK, or AI_CHANGELOG_SLACK_WEBHOOK.",
     )
   }
 

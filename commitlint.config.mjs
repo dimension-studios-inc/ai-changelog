@@ -1,4 +1,4 @@
 export default {
   extends: ["@commitlint/config-conventional"],
-  ignores: [(message) => message.startsWith("Merge ")],
+  ignores: [(/** @type {string} */ message) => message.startsWith("Merge ")],
 }

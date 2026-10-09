@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
+import { ZodError } from "zod"
 
 import { DEFAULT_PROMPT } from "../src/ai"
 import { DEFAULT_EXCLUDE_PATHS, DEFAULT_MODEL, resolveConfig } from "../src/config"
@@ -77,8 +78,8 @@ describe("resolveConfig", () => {
   })
 
   it("rejects empty configured webhook strings", () => {
-    expect(() => resolveConfig({ discordWebhookUrl: "" })).toThrow()
-    expect(() => resolveConfig({ slackWebhookUrl: "   " })).toThrow()
-    expect(() => resolveConfig({ prompt: "" })).toThrow()
+    expect(() => resolveConfig({ discordWebhookUrl: "" })).toThrow(ZodError)
+    expect(() => resolveConfig({ slackWebhookUrl: "   " })).toThrow(ZodError)
+    expect(() => resolveConfig({ prompt: "" })).toThrow(ZodError)
   })
 })

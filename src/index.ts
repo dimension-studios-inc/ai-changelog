@@ -3,7 +3,6 @@ import { sendReleaseNotesForRange } from "./release"
 import type { PluginConfig, ReleaseNotesLogger } from "./shared/types"
 
 export type { GatewayModelId } from "ai"
-// biome-ignore lint/performance/noBarrelFile: root package entrypoint intentionally defines the public API.
 export { DEFAULT_EXCLUDE_PATHS, resolveConfig } from "./config"
 export { sendReleaseNotesForRange } from "./release"
 export { resolveRetryReleaseContext, retryReleaseAnnouncement } from "./retry"
