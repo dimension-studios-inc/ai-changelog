@@ -57,7 +57,7 @@
     "@semantic-release/release-notes-generator": "14.1.1",
     "@types/node": "26.6.4",
     "knip": "6.39.0",
-    "lefthook": "2.1.16",
+    "lefthook": "2.1.17",
     "oxfmt": "0.71.0",
     "oxlint": "1.86.0",
     "oxlint-tsgolint": "7.0.2003",
