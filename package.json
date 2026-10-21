@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "ai": "7.0.130",
-    "execa": "10.0.1",
+    "execa": "10.1.0",
     "zod": "4.6.5"
   },
   "devDependencies": {
