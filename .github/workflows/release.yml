@@ -38,7 +38,7 @@ jobs:
       # The runner's npm (10.x) is too old for @semantic-release/npm OIDC publish (needs >= 11.5.1).
       # Do not set registry-url: it writes an empty _authToken and breaks trusted publishing.
       - name: Setup Node.js
-        uses: actions/setup-node@v7.0.0
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: "24.21.0"
       - run: bun ci
