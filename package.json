@@ -42,7 +42,7 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
-    "ai": "7.0.134",
+    "ai": "7.0.136",
     "execa": "10.1.0",
     "zod": "4.6.5"
   },
