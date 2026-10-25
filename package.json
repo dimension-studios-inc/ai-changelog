@@ -32,7 +32,7 @@
   },
   "scripts": {
     "build": "tsdown",
-    "type-check": "tsc --noEmit",
+    "type-check": "bun check --no-script",
     "test": "vitest run",
     "check": "oxlint && oxfmt --check",
     "lint": "oxlint --fix",
