@@ -32,7 +32,7 @@
   },
   "scripts": {
     "build": "tsdown",
-    "type-check": "tsc --noEmit",
+    "type-check": "bun check --no-script",
     "test": "vitest run",
     "check": "oxlint && oxfmt --check",
     "lint": "oxlint --fix",
@@ -72,7 +72,7 @@
   "engines": {
     "node": "^22.14.0 || >=24.10.0"
   },
-  "packageManager": "bun@1.4.3",
+  "packageManager": "bun@1.4.4",
   "trustedDependencies": [
     "lefthook"
   ]
