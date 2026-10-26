@@ -9,10 +9,11 @@ on:
       - main
   workflow_dispatch:
 
-# A new push to a PR makes the in-flight run obsolete; don't pay for it twice. Runs on main are
-# never cancelled, so each merge gets its answer.
+# A new push to a PR makes the in-flight run obsolete; don't pay for it twice. Each push to main
+# gets its own group: GitHub cancels a pending run when a newer one joins its group, even without
+# cancel-in-progress, and a release merge whose Check was cancelled is not published.
 concurrency:
-  group: check-${{ github.event.pull_request.number || github.ref }}
+  group: check-${{ github.event.pull_request.number || (github.ref == 'refs/heads/main' && github.sha) || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
