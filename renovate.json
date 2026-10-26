@@ -8,8 +8,7 @@
   "automerge": true,
   "platformAutomerge": true,
   "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": ["* * * * 1"]
+    "enabled": true
   },
   "osvVulnerabilityAlerts": true,
   "dependencyDashboardOSVVulnerabilitySummary": "unresolved",
