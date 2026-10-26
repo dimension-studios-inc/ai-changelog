@@ -1,14 +1,53 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":pinAllExceptPeerDependencies"],
+  "timezone": "Europe/Paris",
+  "schedule": ["* * * * 1"],
+  "prHourlyLimit": 0,
+  "minimumReleaseAge": "14 days",
   "automerge": true,
   "platformAutomerge": true,
-  "minimumReleaseAge": "14 days",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["* * * * 1"]
+  },
+  "osvVulnerabilityAlerts": true,
+  "dependencyDashboardOSVVulnerabilitySummary": "unresolved",
+  "vulnerabilityAlerts": {
+    "schedule": ["at any time"],
+    "minimumReleaseAge": null,
+    "labels": ["security"]
+  },
   "packageRules": [
     {
-      "description": "oxlint and oxlint-tsgolint must stay compatible, so update the oxc toolchain in one PR",
-      "groupName": "oxc",
-      "matchPackageNames": ["oxlint", "oxlint-tsgolint", "oxfmt"]
+      "description": "Runtime dependencies: one weekly PR, whose fix(deps) commit makes a release",
+      "matchDepTypes": ["dependencies", "optionalDependencies", "peerDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dependencies"
+    },
+    {
+      "description": "Dev dependencies: one weekly PR, chore(deps), so no release",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dev dependencies"
+    },
+    {
+      "description": "GitHub Actions, and the Node version they set up: one weekly PR",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "github actions"
+    },
+    {
+      "description": "TypeScript and the linters move together (oxlint-tsgolint is built against a TypeScript release), apart from the other dev dependencies: their new rules often need code changes, which would hold the whole group back",
+      "matchPackageNames": ["typescript", "oxlint", "oxlint-tsgolint", "oxfmt"],
+      "groupName": "typescript and linters"
+    },
+    {
+      "description": "Majors can break things: listed in the Dependency Dashboard, and opened (one PR per monorepo) only once ticked there, for a human review",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true,
+      "automerge": false,
+      "labels": ["major"]
     }
   ]
 }
