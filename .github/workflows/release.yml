@@ -11,10 +11,10 @@ name: Release
 # pull request of `docs`, `test`, `ci` or `chore` alone waits for the next one. Merging it tags
 # v<version> and publishes the GitHub release.
 #
-# It acts as the release bot's GitHub App, not with this run's GITHUB_TOKEN: what that token creates
-# runs no workflow, so Check would never run on the release pull request. The app needs contents,
-# issues and pull requests write access; the organization gives vars.RELEASE_BOT_CLIENT_ID and
-# secrets.RELEASE_BOT_PRIVATE_KEY.
+# It acts as a GitHub App, not with this run's GITHUB_TOKEN: what that token creates
+# runs no workflow, so Check would never run on the release pull request. The dimension-release app
+# needs contents, issues and pull requests write access; the repository gives
+# vars.RELEASE_APP_CLIENT_ID and secrets.RELEASE_APP_PRIVATE_KEY.
 on:
   workflow_run:
     workflows: [CI]
@@ -42,8 +42,8 @@ jobs:
         id: generate_token
         uses: actions/create-github-app-token@v3.2.0
         with:
-          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
-          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
           permission-contents: write
           permission-issues: write
           permission-pull-requests: write
