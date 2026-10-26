@@ -1,9 +1,3 @@
 {
-  "$schema": "https://unpkg.com/knip@6/schema.json",
-  "ignoreDependencies": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/github",
-    "@semantic-release/npm",
-    "@semantic-release/release-notes-generator"
-  ]
+  "$schema": "https://unpkg.com/knip@6/schema.json"
 }

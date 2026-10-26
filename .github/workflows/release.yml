@@ -1,23 +1,42 @@
 name: Release
 
+# Keeps the release pull request up to date, and once it is merged publishes the release to npm and
+# announces it. It runs once CI has passed on main, so a red main neither proposes nor publishes a
+# release.
+#
+# release-please (release-please-config.json) reads the conventional commits since the last release
+# and proposes the next version from them (a `fix` bumps the patch, a `feat` the minor, a `!` the
+# major), with its package.json bump and CHANGELOG.md entry, then leaves the pull request open while
+# more merges land. Only the commit types listed without `hidden` in its config open a release: a
+# pull request of `docs`, `test`, `ci` or `chore` alone waits for the next one. Merging it tags
+# v<version> and publishes the GitHub release.
+#
+# It acts as the release bot's GitHub App, not with this run's GITHUB_TOKEN: what that token creates
+# runs no workflow, so Check would never run on the release pull request. The app needs contents,
+# issues and pull requests write access; the organization gives vars.RELEASE_BOT_CLIENT_ID and
+# secrets.RELEASE_BOT_PRIVATE_KEY.
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
 
-permissions:
-  contents: read
+# One run at a time, none cancelled halfway through publishing.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions: {}
 
 jobs:
   release:
     name: Release
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write # npm trusted publishing via OIDC (no NPM_TOKEN)
+    timeout-minutes: 5
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - name: Generate token
         id: generate_token
@@ -25,68 +44,53 @@ jobs:
         with:
           client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+
+      - uses: googleapis/release-please-action@v5.0.0
+        id: release
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish:
+    name: Publish
+    needs: release
+    if: needs.release.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing via OIDC (no NPM_TOKEN)
+    steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
         with:
+          ref: ${{ needs.release.outputs.tag_name }}
+          # The announcement covers the commits since the previous tag.
           fetch-depth: 0
-          token: ${{ steps.generate_token.outputs.token }}
       - name: Setup bun
         uses: oven-sh/setup-bun@v2.2.0
         with:
           # packageManager in package.json pins the bun version.
           bun-version-file: package.json
-      # The runner's npm (10.x) is too old for @semantic-release/npm OIDC publish (needs >= 11.5.1).
+      # The runner's npm (10.x) is too old for OIDC publish (needs >= 11.5.1).
       # Do not set registry-url: it writes an empty _authToken and breaks trusted publishing.
       - name: Setup Node.js
-        uses: actions/setup-node@v7.1.0
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: "24.21.0"
       - run: bun ci
       - run: bun run build
-      - run: bunx semantic-release
+      - run: npm publish
+      # The package announces its own releases. If this step fails, the release is already on npm:
+      # run Retry AI Changelog.
+      - name: Announce the release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.release.outputs.tag_name }}
           AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
           AI_CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.AI_CHANGELOG_DISCORD_WEBHOOK }}
           AI_CHANGELOG_SLACK_WEBHOOK: ${{ secrets.AI_CHANGELOG_SLACK_WEBHOOK }}
-
-  sync:
-    name: Sync
-    needs: release
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Generate token
-        id: generate_token
-        uses: actions/create-github-app-token@v3.2.0
-        with:
-          client-id: ${{ vars.RELEASE_BOT_CLIENT_ID }}
-          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
-      - name: Checkout
-        uses: actions/checkout@v7.0.1
-        with:
-          fetch-depth: 0
-          token: ${{ steps.generate_token.outputs.token }}
-      - name: Setup Git Config
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions@example.com"
-      - name: Fast-forward develop to main
-        run: |
-          set -euo pipefail
-          git fetch origin main develop
-          git checkout develop
-          if ! git merge-base --is-ancestor HEAD origin/main; then
-            echo "develop is not an ancestor of main; cannot fast-forward."
-            echo "Commits on develop that are missing from main:"
-            git log --oneline origin/main..HEAD
-            exit 1
-          fi
-          before="$(git rev-parse HEAD)"
-          git merge --ff-only origin/main
-          if [ "$(git rev-parse HEAD)" = "$before" ]; then
-            echo "develop already matches main"
-            exit 0
-          fi
-          git push origin develop
+        run: bun ./dist/cli.mjs retry --tag "$TAG" --branch main
