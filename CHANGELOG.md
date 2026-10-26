@@ -1,3 +1,36 @@
+# Changelog
+
+## [1.0.8](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.7...v1.0.8) (2026-10-26)
+
+
+### Bug fixes
+
+* **deps:** update dependency ai to v7.0.116 ([#90](https://github.com/dimension-studios-inc/ai-changelog/issues/90)) ([685a146](https://github.com/dimension-studios-inc/ai-changelog/commit/685a146c7089edf0d42823f573a5d4f446a5ecc4))
+* **deps:** update dependency ai to v7.0.117 ([#95](https://github.com/dimension-studios-inc/ai-changelog/issues/95)) ([4926a95](https://github.com/dimension-studios-inc/ai-changelog/commit/4926a95a5c7975b1798010bbd9a9223da2ba2452))
+* **deps:** update dependency ai to v7.0.118 ([#96](https://github.com/dimension-studios-inc/ai-changelog/issues/96)) ([904066b](https://github.com/dimension-studios-inc/ai-changelog/commit/904066b1d4f38a2896c3facbd38673d59d2f6d8d))
+* **deps:** update dependency ai to v7.0.122 ([#98](https://github.com/dimension-studios-inc/ai-changelog/issues/98)) ([44ff099](https://github.com/dimension-studios-inc/ai-changelog/commit/44ff099e943d061add022903853f34293c83e6f1))
+* **deps:** update dependency ai to v7.0.123 ([#100](https://github.com/dimension-studios-inc/ai-changelog/issues/100)) ([4d6675a](https://github.com/dimension-studios-inc/ai-changelog/commit/4d6675a13e6a2f7909d4f2d908bd790b6a877ed8))
+* **deps:** update dependency ai to v7.0.124 ([#103](https://github.com/dimension-studios-inc/ai-changelog/issues/103)) ([6effa78](https://github.com/dimension-studios-inc/ai-changelog/commit/6effa788f1de9b6f55e2e97c1a571bc2478156a4))
+* **deps:** update dependency ai to v7.0.126 ([#104](https://github.com/dimension-studios-inc/ai-changelog/issues/104)) ([71275c1](https://github.com/dimension-studios-inc/ai-changelog/commit/71275c1cdec2be8c81df49079e099219f3b2d01f))
+* **deps:** update dependency ai to v7.0.127 ([#106](https://github.com/dimension-studios-inc/ai-changelog/issues/106)) ([cf9707c](https://github.com/dimension-studios-inc/ai-changelog/commit/cf9707c2ac8e0f9f76b9f8697b75d9c4d2aaac98))
+* **deps:** update dependency ai to v7.0.128 ([#110](https://github.com/dimension-studios-inc/ai-changelog/issues/110)) ([78eae5e](https://github.com/dimension-studios-inc/ai-changelog/commit/78eae5ee404cc1e5dd1856733cceb7ed579fa872))
+* **deps:** update dependency ai to v7.0.129 ([#112](https://github.com/dimension-studios-inc/ai-changelog/issues/112)) ([3587ecc](https://github.com/dimension-studios-inc/ai-changelog/commit/3587ecc1dabcaa4c647a67b512f6646c6e21ad9a))
+* **deps:** update dependency ai to v7.0.130 ([#114](https://github.com/dimension-studios-inc/ai-changelog/issues/114)) ([50c73d5](https://github.com/dimension-studios-inc/ai-changelog/commit/50c73d588d3fbdd47fe7094ee7dcf0128777819d))
+* **deps:** update dependency ai to v7.0.131 ([#115](https://github.com/dimension-studios-inc/ai-changelog/issues/115)) ([a1ed0c5](https://github.com/dimension-studios-inc/ai-changelog/commit/a1ed0c54ebb66482702bef5ddfcf445b1b820143))
+* **deps:** update dependency ai to v7.0.133 ([#117](https://github.com/dimension-studios-inc/ai-changelog/issues/117)) ([c60fb74](https://github.com/dimension-studios-inc/ai-changelog/commit/c60fb74ee6a1993579e0733c40d84406525afdd4))
+* **deps:** update dependency ai to v7.0.134 ([#120](https://github.com/dimension-studios-inc/ai-changelog/issues/120)) ([0ad09d1](https://github.com/dimension-studios-inc/ai-changelog/commit/0ad09d1d2f6c484d21a51aa6f109551d79653601))
+* **deps:** update dependency ai to v7.0.136 ([#121](https://github.com/dimension-studios-inc/ai-changelog/issues/121)) ([d7e802d](https://github.com/dimension-studios-inc/ai-changelog/commit/d7e802dd5db267c7b198a5eefabc4ff8e0a27c8e))
+* **deps:** update dependency ai to v7.0.137 ([#123](https://github.com/dimension-studios-inc/ai-changelog/issues/123)) ([996b873](https://github.com/dimension-studios-inc/ai-changelog/commit/996b8738521fb1e8f8f4bba794649292db634bfc))
+* **deps:** update dependency execa to v10.1.0 ([#113](https://github.com/dimension-studios-inc/ai-changelog/issues/113)) ([fbc7696](https://github.com/dimension-studios-inc/ai-changelog/commit/fbc7696b828df54d00c4ecf5e9ae2c1a0ce6669b))
+* **deps:** update dependency zod to v4.6.6 ([#129](https://github.com/dimension-studios-inc/ai-changelog/issues/129)) ([4be5a37](https://github.com/dimension-studios-inc/ai-changelog/commit/4be5a374f052e33eb64973bc20d406fd056d2470))
+* **deps:** update dependency zod to v4.6.7 ([#132](https://github.com/dimension-studios-inc/ai-changelog/issues/132)) ([0556d2d](https://github.com/dimension-studios-inc/ai-changelog/commit/0556d2d132a233d9be6dfe014a74ab180ea6d91e))
+* drop the leading ./ from the bin path ([#88](https://github.com/dimension-studios-inc/ai-changelog/issues/88)) ([9c8cbfb](https://github.com/dimension-studios-inc/ai-changelog/commit/9c8cbfbeba9f74b43dc5b471d49591d2080dec15))
+
+
+### Reverts
+
+* enable type-aware linting from the CLI ([#94](https://github.com/dimension-studios-inc/ai-changelog/issues/94)) ([13cd9f6](https://github.com/dimension-studios-inc/ai-changelog/commit/13cd9f601f2ad620991e36813c9004e05b9d93a4))
+
 ## [1.0.7](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.6...v1.0.7) (2026-10-09)
 
 
@@ -32,37 +65,6 @@
 * **deps:** update dependency zod to v4.6.2 ([#50](https://github.com/dimension-studios-inc/ai-changelog/issues/50)) ([5f68d39](https://github.com/dimension-studios-inc/ai-changelog/commit/5f68d39eeecfdc874d6faa7c731ea02c48abb893))
 * **deps:** update dependency zod to v4.6.4 ([#53](https://github.com/dimension-studios-inc/ai-changelog/issues/53)) ([b6daa4f](https://github.com/dimension-studios-inc/ai-changelog/commit/b6daa4fb04802db93dc5c2c9f2e822efe5f4471a))
 * **deps:** update dependency zod to v4.6.5 ([#54](https://github.com/dimension-studios-inc/ai-changelog/issues/54)) ([47d8951](https://github.com/dimension-studios-inc/ai-changelog/commit/47d89512ef4472056e8d44bd8ff207862fd916d5))
-
-## [1.0.8](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.7...v1.0.8) (2026-10-26)
-
-
-### Bug fixes
-
-* **deps:** update dependency ai to v7.0.116 ([#90](https://github.com/dimension-studios-inc/ai-changelog/issues/90)) ([685a146](https://github.com/dimension-studios-inc/ai-changelog/commit/685a146c7089edf0d42823f573a5d4f446a5ecc4))
-* **deps:** update dependency ai to v7.0.117 ([#95](https://github.com/dimension-studios-inc/ai-changelog/issues/95)) ([4926a95](https://github.com/dimension-studios-inc/ai-changelog/commit/4926a95a5c7975b1798010bbd9a9223da2ba2452))
-* **deps:** update dependency ai to v7.0.118 ([#96](https://github.com/dimension-studios-inc/ai-changelog/issues/96)) ([904066b](https://github.com/dimension-studios-inc/ai-changelog/commit/904066b1d4f38a2896c3facbd38673d59d2f6d8d))
-* **deps:** update dependency ai to v7.0.122 ([#98](https://github.com/dimension-studios-inc/ai-changelog/issues/98)) ([44ff099](https://github.com/dimension-studios-inc/ai-changelog/commit/44ff099e943d061add022903853f34293c83e6f1))
-* **deps:** update dependency ai to v7.0.123 ([#100](https://github.com/dimension-studios-inc/ai-changelog/issues/100)) ([4d6675a](https://github.com/dimension-studios-inc/ai-changelog/commit/4d6675a13e6a2f7909d4f2d908bd790b6a877ed8))
-* **deps:** update dependency ai to v7.0.124 ([#103](https://github.com/dimension-studios-inc/ai-changelog/issues/103)) ([6effa78](https://github.com/dimension-studios-inc/ai-changelog/commit/6effa788f1de9b6f55e2e97c1a571bc2478156a4))
-* **deps:** update dependency ai to v7.0.126 ([#104](https://github.com/dimension-studios-inc/ai-changelog/issues/104)) ([71275c1](https://github.com/dimension-studios-inc/ai-changelog/commit/71275c1cdec2be8c81df49079e099219f3b2d01f))
-* **deps:** update dependency ai to v7.0.127 ([#106](https://github.com/dimension-studios-inc/ai-changelog/issues/106)) ([cf9707c](https://github.com/dimension-studios-inc/ai-changelog/commit/cf9707c2ac8e0f9f76b9f8697b75d9c4d2aaac98))
-* **deps:** update dependency ai to v7.0.128 ([#110](https://github.com/dimension-studios-inc/ai-changelog/issues/110)) ([78eae5e](https://github.com/dimension-studios-inc/ai-changelog/commit/78eae5ee404cc1e5dd1856733cceb7ed579fa872))
-* **deps:** update dependency ai to v7.0.129 ([#112](https://github.com/dimension-studios-inc/ai-changelog/issues/112)) ([3587ecc](https://github.com/dimension-studios-inc/ai-changelog/commit/3587ecc1dabcaa4c647a67b512f6646c6e21ad9a))
-* **deps:** update dependency ai to v7.0.130 ([#114](https://github.com/dimension-studios-inc/ai-changelog/issues/114)) ([50c73d5](https://github.com/dimension-studios-inc/ai-changelog/commit/50c73d588d3fbdd47fe7094ee7dcf0128777819d))
-* **deps:** update dependency ai to v7.0.131 ([#115](https://github.com/dimension-studios-inc/ai-changelog/issues/115)) ([a1ed0c5](https://github.com/dimension-studios-inc/ai-changelog/commit/a1ed0c54ebb66482702bef5ddfcf445b1b820143))
-* **deps:** update dependency ai to v7.0.133 ([#117](https://github.com/dimension-studios-inc/ai-changelog/issues/117)) ([c60fb74](https://github.com/dimension-studios-inc/ai-changelog/commit/c60fb74ee6a1993579e0733c40d84406525afdd4))
-* **deps:** update dependency ai to v7.0.134 ([#120](https://github.com/dimension-studios-inc/ai-changelog/issues/120)) ([0ad09d1](https://github.com/dimension-studios-inc/ai-changelog/commit/0ad09d1d2f6c484d21a51aa6f109551d79653601))
-* **deps:** update dependency ai to v7.0.136 ([#121](https://github.com/dimension-studios-inc/ai-changelog/issues/121)) ([d7e802d](https://github.com/dimension-studios-inc/ai-changelog/commit/d7e802dd5db267c7b198a5eefabc4ff8e0a27c8e))
-* **deps:** update dependency ai to v7.0.137 ([#123](https://github.com/dimension-studios-inc/ai-changelog/issues/123)) ([996b873](https://github.com/dimension-studios-inc/ai-changelog/commit/996b8738521fb1e8f8f4bba794649292db634bfc))
-* **deps:** update dependency execa to v10.1.0 ([#113](https://github.com/dimension-studios-inc/ai-changelog/issues/113)) ([fbc7696](https://github.com/dimension-studios-inc/ai-changelog/commit/fbc7696b828df54d00c4ecf5e9ae2c1a0ce6669b))
-* **deps:** update dependency zod to v4.6.6 ([#129](https://github.com/dimension-studios-inc/ai-changelog/issues/129)) ([4be5a37](https://github.com/dimension-studios-inc/ai-changelog/commit/4be5a374f052e33eb64973bc20d406fd056d2470))
-* **deps:** update dependency zod to v4.6.7 ([#132](https://github.com/dimension-studios-inc/ai-changelog/issues/132)) ([0556d2d](https://github.com/dimension-studios-inc/ai-changelog/commit/0556d2d132a233d9be6dfe014a74ab180ea6d91e))
-* drop the leading ./ from the bin path ([#88](https://github.com/dimension-studios-inc/ai-changelog/issues/88)) ([9c8cbfb](https://github.com/dimension-studios-inc/ai-changelog/commit/9c8cbfbeba9f74b43dc5b471d49591d2080dec15))
-
-
-### Reverts
-
-* enable type-aware linting from the CLI ([#94](https://github.com/dimension-studios-inc/ai-changelog/issues/94)) ([13cd9f6](https://github.com/dimension-studios-inc/ai-changelog/commit/13cd9f601f2ad620991e36813c9004e05b9d93a4))
 
 ## [1.0.6](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.5...v1.0.6) (2026-08-29)
 
