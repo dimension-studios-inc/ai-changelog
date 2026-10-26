@@ -1,8 +1,7 @@
 name: Release
 
-# Keeps the release pull request up to date, and once it is merged publishes the release to npm and
-# announces it. It runs once CI has passed on main, so a red main neither proposes nor publishes a
-# release.
+# Keeps the release pull request up to date, and once it is merged publishes the release to npm. It
+# runs once CI has passed on main, so a red main neither proposes nor publishes a release.
 #
 # release-please (release-please-config.json) reads the conventional commits since the last release
 # and proposes the next version from them (a `fix` bumps the patch, a `feat` the minor, a `!` the
@@ -69,8 +68,6 @@ jobs:
         uses: actions/checkout@v7.0.1
         with:
           ref: ${{ needs.release.outputs.tag_name }}
-          # The announcement covers the commits since the previous tag.
-          fetch-depth: 0
       - name: Setup bun
         uses: oven-sh/setup-bun@v2.2.0
         with:
@@ -85,12 +82,3 @@ jobs:
       - run: bun ci
       - run: bun run build
       - run: npm publish
-      # The package announces its own releases. If this step fails, the release is already on npm:
-      # run Retry AI Changelog.
-      - name: Announce the release
-        env:
-          TAG: ${{ needs.release.outputs.tag_name }}
-          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
-          AI_CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.AI_CHANGELOG_DISCORD_WEBHOOK }}
-          AI_CHANGELOG_SLACK_WEBHOOK: ${{ secrets.AI_CHANGELOG_SLACK_WEBHOOK }}
-        run: bun ./dist/cli.mjs retry --tag "$TAG" --branch main

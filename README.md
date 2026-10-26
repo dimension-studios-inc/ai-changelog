@@ -204,8 +204,65 @@ operators need:
 Use the same `AI_GATEWAY_API_KEY`, `AI_CHANGELOG_DISCORD_WEBHOOK`, and `AI_CHANGELOG_SLACK_WEBHOOK` secrets as your
 release workflow so retries use the same model and webhook configuration.
 
-For a complete example, see this repository's
-[`retry-changelog.yml`](./.github/workflows/retry-changelog.yml) workflow.
+For example:
+
+```yaml
+name: Retry AI Changelog
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version. Leave blank to use the latest tag."
+        required: false
+        type: string
+      branch:
+        description: "Branch name to show in Slack/Discord metadata."
+        required: true
+        default: main
+        type: string
+      publisher:
+        description: "Notification target to retry."
+        required: true
+        default: both
+        type: choice
+        options: [both, slack, discord]
+      dry_run:
+        description: "Generate payloads without posting to webhooks."
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm ci
+      - name: Retry changelog notification
+        env:
+          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+          AI_CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.AI_CHANGELOG_DISCORD_WEBHOOK }}
+          AI_CHANGELOG_SLACK_WEBHOOK: ${{ secrets.AI_CHANGELOG_SLACK_WEBHOOK }}
+          RETRY_VERSION: ${{ inputs.version }}
+          RETRY_BRANCH: ${{ inputs.branch }}
+          RETRY_PUBLISHER: ${{ inputs.publisher }}
+          RETRY_DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          args=(retry --branch "$RETRY_BRANCH" --publisher "$RETRY_PUBLISHER" --dry-run "$RETRY_DRY_RUN")
+          if [ -n "$RETRY_VERSION" ]; then
+            args+=(--version "$RETRY_VERSION")
+          fi
+          npx ai-changelog "${args[@]}"
+```
 
 ## CI and Testing
 
