@@ -47,8 +47,26 @@ jobs:
           permission-issues: write
           permission-pull-requests: write
 
+      # release-please reads main as it is now, not the commit whose CI started this run: it runs only
+      # when that commit is still main's latest, so a release never lands on (and publishes) a commit
+      # whose Check is still running. A run for an older commit leaves it to the newer one.
+      - name: Check that main has not moved
+        id: head
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          head="$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)"
+          if [ "$head" = "$SHA" ]; then
+            echo "latest=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "main moved from ${SHA:0:7} to ${head:0:7}: the run for ${head:0:7} releases"
+            echo "latest=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: googleapis/release-please-action@v5.0.0
         id: release
+        if: steps.head.outputs.latest == 'true'
         with:
           token: ${{ steps.generate_token.outputs.token }}
           config-file: release-please-config.json
