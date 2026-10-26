@@ -38,7 +38,6 @@
     "lint": "oxlint --fix",
     "format": "oxfmt",
     "knip": "knip",
-    "release": "semantic-release",
     "prepare": "lefthook install"
   },
   "dependencies": {
@@ -49,19 +48,12 @@
   "devDependencies": {
     "@commitlint/cli": "21.2.3",
     "@commitlint/config-conventional": "21.2.3",
-    "@semantic-release/changelog": "7.0.0",
-    "@semantic-release/commit-analyzer": "13.0.1",
-    "@semantic-release/git": "11.0.1",
-    "@semantic-release/github": "12.0.10",
-    "@semantic-release/npm": "13.2.0",
-    "@semantic-release/release-notes-generator": "14.1.1",
     "@types/node": "26.6.5",
     "knip": "6.41.0",
     "lefthook": "2.2.1",
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
     "oxlint-tsgolint": "7.0.2004",
-    "semantic-release": "25.0.9",
     "tsdown": "0.23.1",
     "typescript": "7.0.2",
     "vitest": "5.0.4"
