@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.9...v1.0.10) (2026-11-16)
+
+
+### Bug fixes
+
+* **deps:** update dependency ai to v7.0.159 ([#153](https://github.com/dimension-studios-inc/ai-changelog/issues/153)) ([f2be333](https://github.com/dimension-studios-inc/ai-changelog/commit/f2be3337ea332b0f921a6ce44f7ee1c18524f07c))
+
 ## [1.0.9](https://github.com/dimension-studios-inc/ai-changelog/compare/v1.0.8...v1.0.9) (2026-11-09)
 
 
